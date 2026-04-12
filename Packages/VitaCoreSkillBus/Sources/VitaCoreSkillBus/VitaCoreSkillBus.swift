@@ -88,6 +88,9 @@ public final class VitaCoreSkillBus: SkillBusProtocol, @unchecked Sendable {
         ]
     }
 
+    /// Current number of registered skills (for logging).
+    public var registeredSkillCount: Int { registeredSkills.count }
+
     /// Registers an external device skill (e.g. HealthKitSkill).
     /// Called during app init or when a new device is paired.
     public func registerSkill(_ descriptor: SkillDescriptor) {

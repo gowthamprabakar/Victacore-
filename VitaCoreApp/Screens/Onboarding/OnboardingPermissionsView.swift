@@ -116,7 +116,10 @@ struct OnboardingPermissionsView: View {
     // -------------------------------------------------------------------------
 
     private func requestHealthKit() {
-        // Mock: toggle between idle → granted → denied
+        // Sprint 2.B: HealthKit authorization is triggered from VitaCoreApp.init
+        // via HealthKitSkill. The onboarding UI shows the toggle flow; the actual
+        // system permission dialog fires on first launch. Tight onboarding ↔ auth
+        // coupling comes in a polish sprint.
         withAnimation(VCAnimation.cardEntrance) {
             switch healthKitState {
             case .idle:    healthKitState = .granted; showHealthKitWarning = false

@@ -29,6 +29,9 @@ struct VitaCoreApp: App {
     private let thresholdEngine: VitaCoreThresholdEngine
     private let inferenceProvider: InferenceProviderProtocol
     private let skillBus: SkillBusProtocol
+    #if canImport(HealthKit)
+    private var healthKitSkill: HealthKitSkill?
+    #endif
 
     init() {
         // Initialise ALL stored properties first (Swift init rules).
@@ -84,11 +87,41 @@ struct VitaCoreApp: App {
 
         // C03 SkillBus — manual entry skills write directly to GraphStore.
         // 5/5 frozen protocols now have real implementations.
-        self.skillBus = VitaCoreSkillBus(graphStore: graph)
-        print("✅ VitaCoreSkillBus: 6 manual entry skills registered")
+        let bus = VitaCoreSkillBus(graphStore: graph)
+
+        // C04 HealthKitSkill — registers as a device skill in the bus.
+        // Authorization is deferred to onboarding (OnboardingPermissionsView).
+        #if canImport(HealthKit)
+        let hkSkill = HealthKitSkill(graphStore: graph, skillBus: bus)
+        // Store reference so onboarding can call requestAuthorization().
+        self.healthKitSkill = hkSkill
+        print("✅ HealthKitSkill: registered (auth deferred to onboarding)")
+        #endif
+
+        self.skillBus = bus
+        print("✅ VitaCoreSkillBus: \(bus.registeredSkillCount) skills registered")
 
         // Now that all stored properties are set, it's safe to call instance methods.
         configureAppearance()
+
+        // Sprint 2.B: HealthKit authorization + backfill on first launch.
+        // The system dialog shows once; subsequent launches are no-ops.
+        #if canImport(HealthKit)
+        if let hk = self.healthKitSkill {
+            Task.detached {
+                do {
+                    let granted = try await hk.requestAuthorization()
+                    if granted {
+                        hk.startObserving()
+                        await hk.performBackfill(days: 14)
+                        print("✅ HealthKit: authorised + backfill complete")
+                    }
+                } catch {
+                    print("⚠️ HealthKit: auth failed (\(error))")
+                }
+            }
+        }
+        #endif
 
         #if DEMO_MODE
         // Sprint 0.3 demo-mode seeding: on first DEMO_MODE launch, populate
