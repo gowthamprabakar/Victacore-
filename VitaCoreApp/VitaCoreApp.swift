@@ -8,6 +8,7 @@ import VitaCoreGraph
 import VitaCorePersona
 import VitaCoreThreshold
 import VitaCoreInference
+import VitaCoreSkillBus
 #if DEMO_MODE
 import VitaCoreSynthetic
 #endif
@@ -27,6 +28,7 @@ struct VitaCoreApp: App {
     private let personaEngine: PersonaEngineProtocol
     private let thresholdEngine: VitaCoreThresholdEngine
     private let inferenceProvider: InferenceProviderProtocol
+    private let skillBus: SkillBusProtocol
 
     init() {
         // Initialise ALL stored properties first (Swift init rules).
@@ -80,6 +82,11 @@ struct VitaCoreApp: App {
         }
         self.inferenceProvider = inference
 
+        // C03 SkillBus — manual entry skills write directly to GraphStore.
+        // 5/5 frozen protocols now have real implementations.
+        self.skillBus = VitaCoreSkillBus(graphStore: graph)
+        print("✅ VitaCoreSkillBus: 6 manual entry skills registered")
+
         // Now that all stored properties are set, it's safe to call instance methods.
         configureAppearance()
 
@@ -129,8 +136,8 @@ struct VitaCoreApp: App {
                 .environment(\.graphStore, graphStore)        // ← REAL (GRDB)
                 .environment(\.personaEngine, personaEngine)  // ← REAL (VitaCorePersonaEngine)
                 .environment(\.inferenceProvider, inferenceProvider) // ← REAL (VitaCoreInferenceProvider)
-                .environment(\.skillBus, dataProvider.skillBus)
-                .environment(\.alertRouter, dataProvider.alertRouter)
+                .environment(\.skillBus, skillBus)               // ← REAL (VitaCoreSkillBus)
+                .environment(\.alertRouter, dataProvider.alertRouter) // mock until Phase 3
         }
     }
 

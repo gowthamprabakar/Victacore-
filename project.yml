@@ -36,6 +36,8 @@ packages:
     path: Packages/VitaCorePersona
   VitaCoreThreshold:
     path: Packages/VitaCoreThreshold
+  VitaCoreSkillBus:
+    path: Packages/VitaCoreSkillBus
 
 targets:
   VitaCore:
@@ -56,6 +58,7 @@ targets:
       - package: VitaCoreSynthetic
       - package: VitaCorePersona
       - package: VitaCoreThreshold
+      - package: VitaCoreSkillBus
     settings:
       base:
         INFOPLIST_FILE: ""

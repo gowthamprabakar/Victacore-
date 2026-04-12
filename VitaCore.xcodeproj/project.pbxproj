@@ -11,6 +11,7 @@
 		03C177E817FFF8C87B07A634 /* MetricDetailComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27ADDE9AB474F781E8D36BF /* MetricDetailComponents.swift */; };
 		03D5937C7CAF14BAE42A0AE8 /* HeartRateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE1B81704508192D20686F /* HeartRateDetailView.swift */; };
 		066DEDFA74414751DD398356 /* VitaCoreContracts in Frameworks */ = {isa = PBXBuildFile; productRef = 9401C487D3248C1B1421D8C6 /* VitaCoreContracts */; };
+		0B5A9D06800E0B0C244EA538 /* VitaCoreSkillBus in Frameworks */ = {isa = PBXBuildFile; productRef = B214C11D76CC248C14AEFF01 /* VitaCoreSkillBus */; };
 		15174D964D6DAFC9C45797E3 /* AllergiesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054B2C9E50D98227C2C97EBB /* AllergiesSettingsView.swift */; };
 		171545A8370C4503B1A596C7 /* StepsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A347DC4F3A2C113CCFFC78 /* StepsDetailView.swift */; };
 		1986C288606D6B98E75ED2BD /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1025E6F6076BF4E18052BD8 /* GoalDetailView.swift */; };
@@ -125,6 +126,7 @@
 		75B3094950D4AE8CFD6B63BA /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		75E189D29EE92C1AE41864AD /* ConnectionsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsSettingsView.swift; sourceTree = "<group>"; };
 		76B9160422C2A282B1A3DED9 /* WidgetGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetGalleryView.swift; sourceTree = "<group>"; };
+		797F1A4E35EA558EC6AECBEB /* VitaCoreSkillBus */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreSkillBus; path = Packages/VitaCoreSkillBus; sourceTree = SOURCE_ROOT; };
 		7BA9C6E5A09D866CCCCF2D61 /* FoodReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodReviewView.swift; sourceTree = "<group>"; };
 		7E49F59FA8C9EDAE0F246F71 /* EnvironmentKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentKeys.swift; sourceTree = "<group>"; };
 		8650424784C33CB3CB365873 /* MedicationsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsSettingsView.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				84A308A6F87208C86D44F288 /* VitaCoreSynthetic in Frameworks */,
 				3159F788E813F7BAF8BB0F5C /* VitaCorePersona in Frameworks */,
 				F799FB1C96295E9D8D807A44 /* VitaCoreThreshold in Frameworks */,
+				0B5A9D06800E0B0C244EA538 /* VitaCoreSkillBus in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +263,7 @@
 				E3F0822AAE5B6CE06D046AAC /* VitaCoreMock */,
 				C5A7EBD6C19988B2C274EFFC /* VitaCoreNavigation */,
 				B1157597CD4CE8F56146256D /* VitaCorePersona */,
+				797F1A4E35EA558EC6AECBEB /* VitaCoreSkillBus */,
 				2D183352AE5509E2A7C05496 /* VitaCoreSynthetic */,
 				CE98294221987BF9BAE30A36 /* VitaCoreThreshold */,
 			);
@@ -416,6 +420,7 @@
 				2959F865252CEDA5FF36C98E /* VitaCoreSynthetic */,
 				98A2FA363458673EDFBCEB7B /* VitaCorePersona */,
 				2C76744B5F7D1CF573BF0A4F /* VitaCoreThreshold */,
+				B214C11D76CC248C14AEFF01 /* VitaCoreSkillBus */,
 			);
 			productName = VitaCore;
 			productReference = 5E3458BC5F637440F924F1EB /* VitaCore.app */;
@@ -453,6 +458,7 @@
 				BA4831477425357CF8A6C304 /* XCLocalSwiftPackageReference "Packages/VitaCoreMock" */,
 				A90D8A456F511B02884F45B8 /* XCLocalSwiftPackageReference "Packages/VitaCoreNavigation" */,
 				36CA14D880D64AD2D6E3646B /* XCLocalSwiftPackageReference "Packages/VitaCorePersona" */,
+				C61976BE4C1ABE47AF007CBF /* XCLocalSwiftPackageReference "Packages/VitaCoreSkillBus" */,
 				CB111E512D41EC3E20660251 /* XCLocalSwiftPackageReference "Packages/VitaCoreSynthetic" */,
 				5509D81A145BFDEF8A895EC8 /* XCLocalSwiftPackageReference "Packages/VitaCoreThreshold" */,
 			);
@@ -782,6 +788,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/VitaCoreMock;
 		};
+		C61976BE4C1ABE47AF007CBF /* XCLocalSwiftPackageReference "Packages/VitaCoreSkillBus" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VitaCoreSkillBus;
+		};
 		CB111E512D41EC3E20660251 /* XCLocalSwiftPackageReference "Packages/VitaCoreSynthetic" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/VitaCoreSynthetic;
@@ -828,6 +838,10 @@
 		98A2FA363458673EDFBCEB7B /* VitaCorePersona */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = VitaCorePersona;
+		};
+		B214C11D76CC248C14AEFF01 /* VitaCoreSkillBus */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VitaCoreSkillBus;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
