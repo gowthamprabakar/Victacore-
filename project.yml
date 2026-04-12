@@ -1,0 +1,71 @@
+name: VitaCore
+options:
+  bundleIdPrefix: com.vitacore
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+  xcodeVersion: "16.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+    ENABLE_PREVIEWS: "YES"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGNING_REQUIRED: "NO"
+    CODE_SIGNING_ALLOWED: "NO"
+
+packages:
+  VitaCoreContracts:
+    path: Packages/VitaCoreContracts
+  VitaCoreDesign:
+    path: Packages/VitaCoreDesign
+  VitaCoreMock:
+    path: Packages/VitaCoreMock
+  VitaCoreNavigation:
+    path: Packages/VitaCoreNavigation
+  VitaCoreGraph:
+    path: Packages/VitaCoreGraph
+  VitaCoreInference:
+    path: Packages/VitaCoreInference
+  VitaCoreSynthetic:
+    path: Packages/VitaCoreSynthetic
+  VitaCorePersona:
+    path: Packages/VitaCorePersona
+
+targets:
+  VitaCore:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: VitaCoreApp
+        excludes:
+          - "**/.DS_Store"
+    dependencies:
+      - package: VitaCoreContracts
+      - package: VitaCoreDesign
+      - package: VitaCoreMock
+      - package: VitaCoreNavigation
+      - package: VitaCoreGraph
+      - package: VitaCoreInference
+      - package: VitaCoreSynthetic
+      - package: VitaCorePersona
+    settings:
+      base:
+        INFOPLIST_FILE: ""
+        GENERATE_INFOPLIST_FILE: "YES"
+        PRODUCT_BUNDLE_IDENTIFIER: com.vitacore.app
+        PRODUCT_NAME: VitaCore
+        INFOPLIST_KEY_UILaunchScreen_Generation: "YES"
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: "YES"
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: "YES"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait"
+        INFOPLIST_KEY_CFBundleDisplayName: VitaCore
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_EMIT_LOC_STRINGS: "YES"
+        ENABLE_PREVIEWS: "YES"
+        DEAD_CODE_STRIPPING: "YES"

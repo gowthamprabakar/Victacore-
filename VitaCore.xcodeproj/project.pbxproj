@@ -1,0 +1,821 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00DE438642D7E3849FD0D1F7 /* MedicationsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8650424784C33CB3CB365873 /* MedicationsSettingsView.swift */; };
+		03C177E817FFF8C87B07A634 /* MetricDetailComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27ADDE9AB474F781E8D36BF /* MetricDetailComponents.swift */; };
+		03D5937C7CAF14BAE42A0AE8 /* HeartRateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE1B81704508192D20686F /* HeartRateDetailView.swift */; };
+		066DEDFA74414751DD398356 /* VitaCoreContracts in Frameworks */ = {isa = PBXBuildFile; productRef = 9401C487D3248C1B1421D8C6 /* VitaCoreContracts */; };
+		15174D964D6DAFC9C45797E3 /* AllergiesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054B2C9E50D98227C2C97EBB /* AllergiesSettingsView.swift */; };
+		171545A8370C4503B1A596C7 /* StepsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A347DC4F3A2C113CCFFC78 /* StepsDetailView.swift */; };
+		1986C288606D6B98E75ED2BD /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1025E6F6076BF4E18052BD8 /* GoalDetailView.swift */; };
+		19A379CD24ED1AA7B9C64EC5 /* OnboardingBasicProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20B15769A1837DE7D662E6 /* OnboardingBasicProfileView.swift */; };
+		1B9A00A8C579BD245CBAEACD /* FoodFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD82B83194DDF89BF26DC5 /* FoodFlowView.swift */; };
+		2351461876E9FE5AE31B6121 /* BPEntrySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A407AB8FFAECE6E7986FBC04 /* BPEntrySheet.swift */; };
+		288146AD9690DFB0389BB9AF /* LogHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1633135D94253FA8FAD7045C /* LogHubView.swift */; };
+		307248ADD452420F8747E5D6 /* ChatComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F790FB4253D515A84EB9D4A /* ChatComponents.swift */; };
+		3159F788E813F7BAF8BB0F5C /* VitaCorePersona in Frameworks */ = {isa = PBXBuildFile; productRef = 98A2FA363458673EDFBCEB7B /* VitaCorePersona */; };
+		38648D6221F18BA50DA83FA1 /* LargeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E213E7195DE5EFE95D5DE /* LargeWidgetView.swift */; };
+		3B3D247259455AFA6904F882 /* GlucoseEntrySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983109295A59EEC4976333E9 /* GlucoseEntrySheet.swift */; };
+		489DEC668E1672854C680947 /* WidgetGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B9160422C2A282B1A3DED9 /* WidgetGalleryView.swift */; };
+		4A541D49C944B95210862B46 /* HomeDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5C566F094E58418DCF08C /* HomeDashboardView.swift */; };
+		4D9DE681AB17F9798B204D59 /* ConnectionsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E189D29EE92C1AE41864AD /* ConnectionsSettingsView.swift */; };
+		4F1AC114ED2EB2463F67B725 /* NoteEntrySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF24BFD5364A098F2E372322 /* NoteEntrySheet.swift */; };
+		51D37E04BBEB59005F50DC88 /* VitaCoreGraph in Frameworks */ = {isa = PBXBuildFile; productRef = 4B21F1E94BA3C7E7362B5913 /* VitaCoreGraph */; };
+		52D060F7A1D4398F9E595046 /* OnboardingGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F800D90146E61EE980548C /* OnboardingGoalsView.swift */; };
+		53834BB0B46CC422C4FE69EB /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B3094950D4AE8CFD6B63BA /* HapticManager.swift */; };
+		55D3CEE6EF48CE18D676C6A1 /* QualityCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D03E5A1FB2808387A889AFF /* QualityCheckView.swift */; };
+		57269E86FDCA6EEC53CEDC4C /* AlertHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2051747250CB7A018D4EB4 /* AlertHistoryView.swift */; };
+		57A12196D05B665BE379851C /* AccessibilityHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB93B7698E8246765A64B74B /* AccessibilityHelpers.swift */; };
+		59162D53AEA50F31902A156F /* OnboardingConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6191620C9F3D6B3D6F291563 /* OnboardingConditionsView.swift */; };
+		5BD7ED2D9E75F5EC42FBEF6A /* LoadingShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DAEFFA223FD7B9E7DED82B /* LoadingShimmer.swift */; };
+		5C6F72A84B266A10FE77DB17 /* VitaCoreNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 8BB1D77EA1BF23D5D3FD045B /* VitaCoreNavigation */; };
+		5EC5F45C337CB9CDC7168FB5 /* OnboardingDownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB68D3D75099132E345B14C4 /* OnboardingDownloadView.swift */; };
+		5EDF2B9DE951AC412BD527EA /* AllergenWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40517B7C14F263E69FCC57C7 /* AllergenWarningView.swift */; };
+		5F20BFAAAE7223A57ACD0515 /* ProactiveSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F024B4B90FF1C016DBE74A4 /* ProactiveSessionView.swift */; };
+		62C9A4C6AB4623F6FBFD0C5E /* VitaCoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43244C5AF2BDA7706AA7BA4E /* VitaCoreApp.swift */; };
+		62EA345E7F3A8F3585345FEB /* EnvironmentKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E49F59FA8C9EDAE0F246F71 /* EnvironmentKeys.swift */; };
+		647D0A3D67C220D41D9918C3 /* ConversationHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86B54683772DE0CCACE30C1 /* ConversationHistoryView.swift */; };
+		6558E29A919884338BF1A39A /* MediumWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E32606E04C3DECB06A4FC7 /* MediumWidgetView.swift */; };
+		6645F4F4EE20C33624BE2EE7 /* WatchBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0898CCF64534D74A036EEE /* WatchBannerView.swift */; };
+		73AA6FB225EC0B48C30A4FEB /* LockScreenWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6E8C18384648DB6AC1B87 /* LockScreenWidgetView.swift */; };
+		7B1EF49DEC2E97F1EF95EE9F /* OnboardingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE3F100F2AA46AD754C05C9 /* OnboardingContainer.swift */; };
+		83DE27636702B79ABDB164EE /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7179080FD0C42A66FAA658E /* ChatViewModel.swift */; };
+		84A308A6F87208C86D44F288 /* VitaCoreSynthetic in Frameworks */ = {isa = PBXBuildFile; productRef = 2959F865252CEDA5FF36C98E /* VitaCoreSynthetic */; };
+		8E6F8CED83AB80A106614BA8 /* NotificationsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AB9FB0E8152237165699C6 /* NotificationsSettingsView.swift */; };
+		8F18AB822A1DBA7B42432AF2 /* OnboardingPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238A5706C30C3AE6B988FE4 /* OnboardingPermissionsView.swift */; };
+		9212C8ABC6A9034A221457DE /* BackupRestoreSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C0628B6666EE39132C1649 /* BackupRestoreSettingsView.swift */; };
+		92445FABC26794B9B368FBA1 /* LaunchRouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF64D8BEB5CFA832CC3BEA /* LaunchRouterView.swift */; };
+		9E6093246ED63107EF885932 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C4B0DE598C6514B24D77E0 /* OnboardingWelcomeView.swift */; };
+		9F7CE62F9C8CD7D8563C0EF9 /* FoodReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA9C6E5A09D866CCCCF2D61 /* FoodReviewView.swift */; };
+		A2E4300B9825A9DCB2698321 /* FoodConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FA8441CB0C438CC69B8DD3 /* FoodConfirmationView.swift */; };
+		A6996FBDEA8C141B75060281 /* MonitoringDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3340470A87EBD234BB6C8CE /* MonitoringDetailView.swift */; };
+		A7D94C1364828E1FB5FB1A9A /* VitaCoreInference in Frameworks */ = {isa = PBXBuildFile; productRef = 6DF4404DC18B39D624127E12 /* VitaCoreInference */; };
+		AC5FAD03A9049002B303C9EE /* SleepDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280C45960FC62202408DF098 /* SleepDetailView.swift */; };
+		B54D9030F467DB93B9D9EC0D /* AnalysisLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A1E1F3FBFC7C997D4A65E7 /* AnalysisLoadingView.swift */; };
+		B80DD0D5B057D30657217797 /* BloodPressureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80F0851B01378269A8DCB76 /* BloodPressureDetailView.swift */; };
+		B948D66F220496E7C1B29249 /* VitaCoreDesign in Frameworks */ = {isa = PBXBuildFile; productRef = 66588BFC00AB96C04A810BB8 /* VitaCoreDesign */; };
+		BE61E4B5A6BFF422853F23A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE5ABA640B35CA1FE2770 /* ContentView.swift */; };
+		BFB4AA3477350A27ACD28B8E /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C373D4D1D854B0D0395BF2 /* ProfileSettingsView.swift */; };
+		C497A9F11441F2FFBD6A5A52 /* MedicationInteractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48C98CDF3744D3E1D4887BA /* MedicationInteractionView.swift */; };
+		D0FCD528470864B7EA59D293 /* GlucoseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0B7C7D815480622EF3FA9 /* GlucoseDetailView.swift */; };
+		D2B22869F4AAE4C8C120B1A5 /* FoodFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB55423142C8BC2CC3B3AA31 /* FoodFlowCoordinator.swift */; };
+		D5A0271F8573A2E7CEBCC508 /* StaggeredEntrance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CCC4AA8C87944D9F991C65 /* StaggeredEntrance.swift */; };
+		D5BD15911E2E07A0127EA104 /* SettingsMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C24F59E8CC0AE645F6235 /* SettingsMainView.swift */; };
+		D8AA6041596B1FFF6C1147F0 /* ConditionsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A5B5866C1C9D477600E2C6 /* ConditionsSettingsView.swift */; };
+		DF4F4311A4BB466E11E9BBC9 /* OnboardingAllergiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2C83C8B8B44E26A078B2AD /* OnboardingAllergiesView.swift */; };
+		E07F6543152A0B645D04E1A8 /* HomeDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4990BA5D26913A7219EE6B96 /* HomeDashboardViewModel.swift */; };
+		E27ECC7B3EE4D2D03A7B8C93 /* FluidEntrySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A81AA4A59C3AFB8ABF8284B /* FluidEntrySheet.swift */; };
+		E2B67C324E99DC8748D2942E /* AlertSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E71D4282210B984D12F4C42 /* AlertSheetView.swift */; };
+		EB3355E205E400BFD9014838 /* CameraCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F33C1195929A3BCBA8F5D3 /* CameraCaptureView.swift */; };
+		EB530BCF79144776AD1DFF01 /* VitaCoreMock in Frameworks */ = {isa = PBXBuildFile; productRef = 2A3415A76DC2C5207A3BD87E /* VitaCoreMock */; };
+		EB814E670D9180850688A52F /* PrivacySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32685F65915E1692B6AD248A /* PrivacySettingsView.swift */; };
+		EDEA38F60C46470D5F7C7AA2 /* OnboardingMedicationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6276A274E1F901FADBDB8 /* OnboardingMedicationsView.swift */; };
+		EECB322ED0F312684245DDBB /* AboutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDDC15575CD2429D3E46C7 /* AboutSettingsView.swift */; };
+		EFC8BBBF330882442D355BBE /* GoalsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D126E38EB91ADDDD5DB67B /* GoalsSettingsView.swift */; };
+		F011B5F1A5FBB5084FE8FC72 /* ExportSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28162876AB2D76E8208246 /* ExportSettingsView.swift */; };
+		F09DF41B424335DC2ADE26E7 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A0B2E9817DDC8B8A38429 /* ChatView.swift */; };
+		F1D4377B3C91F159862BCF02 /* OnboardingFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4D485E3870B8693BE15F93 /* OnboardingFlowCoordinator.swift */; };
+		F44F0ABF4F758967B34FF254 /* WeightEntrySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239A2A27A68B4ACD36C7AE8 /* WeightEntrySheet.swift */; };
+		F5BCF1019BD76702554F30A8 /* CriticalAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD51A675238902FDDF7ED4E /* CriticalAlertView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		01CDDC15575CD2429D3E46C7 /* AboutSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsView.swift; sourceTree = "<group>"; };
+		03F800D90146E61EE980548C /* OnboardingGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGoalsView.swift; sourceTree = "<group>"; };
+		054B2C9E50D98227C2C97EBB /* AllergiesSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergiesSettingsView.swift; sourceTree = "<group>"; };
+		05A347DC4F3A2C113CCFFC78 /* StepsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsDetailView.swift; sourceTree = "<group>"; };
+		0A81AA4A59C3AFB8ABF8284B /* FluidEntrySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidEntrySheet.swift; sourceTree = "<group>"; };
+		1633135D94253FA8FAD7045C /* LogHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogHubView.swift; sourceTree = "<group>"; };
+		1C5A0B2E9817DDC8B8A38429 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		1D03E5A1FB2808387A889AFF /* QualityCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityCheckView.swift; sourceTree = "<group>"; };
+		1DE3F100F2AA46AD754C05C9 /* OnboardingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContainer.swift; sourceTree = "<group>"; };
+		1F024B4B90FF1C016DBE74A4 /* ProactiveSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProactiveSessionView.swift; sourceTree = "<group>"; };
+		1F790FB4253D515A84EB9D4A /* ChatComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatComponents.swift; sourceTree = "<group>"; };
+		27C373D4D1D854B0D0395BF2 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
+		280C45960FC62202408DF098 /* SleepDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepDetailView.swift; sourceTree = "<group>"; };
+		2945F01F406A3BE561B436D9 /* VitaCoreDesign */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreDesign; path = Packages/VitaCoreDesign; sourceTree = SOURCE_ROOT; };
+		2D183352AE5509E2A7C05496 /* VitaCoreSynthetic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreSynthetic; path = Packages/VitaCoreSynthetic; sourceTree = SOURCE_ROOT; };
+		2D3FF4C19791490E0D22CB6E /* VitaCoreGraph */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreGraph; path = Packages/VitaCoreGraph; sourceTree = SOURCE_ROOT; };
+		30C0628B6666EE39132C1649 /* BackupRestoreSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupRestoreSettingsView.swift; sourceTree = "<group>"; };
+		32685F65915E1692B6AD248A /* PrivacySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsView.swift; sourceTree = "<group>"; };
+		39B5167FB830529404889E73 /* VitaCoreContracts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreContracts; path = Packages/VitaCoreContracts; sourceTree = SOURCE_ROOT; };
+		3E71D4282210B984D12F4C42 /* AlertSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSheetView.swift; sourceTree = "<group>"; };
+		3FE5C566F094E58418DCF08C /* HomeDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDashboardView.swift; sourceTree = "<group>"; };
+		40517B7C14F263E69FCC57C7 /* AllergenWarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenWarningView.swift; sourceTree = "<group>"; };
+		43244C5AF2BDA7706AA7BA4E /* VitaCoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitaCoreApp.swift; sourceTree = "<group>"; };
+		4990BA5D26913A7219EE6B96 /* HomeDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDashboardViewModel.swift; sourceTree = "<group>"; };
+		4F4D485E3870B8693BE15F93 /* OnboardingFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowCoordinator.swift; sourceTree = "<group>"; };
+		56F33C1195929A3BCBA8F5D3 /* CameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureView.swift; sourceTree = "<group>"; };
+		57FA8441CB0C438CC69B8DD3 /* FoodConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodConfirmationView.swift; sourceTree = "<group>"; };
+		5E3458BC5F637440F924F1EB /* VitaCore.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = VitaCore.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6191620C9F3D6B3D6F291563 /* OnboardingConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingConditionsView.swift; sourceTree = "<group>"; };
+		6239A2A27A68B4ACD36C7AE8 /* WeightEntrySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightEntrySheet.swift; sourceTree = "<group>"; };
+		65A1E1F3FBFC7C997D4A65E7 /* AnalysisLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisLoadingView.swift; sourceTree = "<group>"; };
+		6CAE1B81704508192D20686F /* HeartRateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateDetailView.swift; sourceTree = "<group>"; };
+		6D7E213E7195DE5EFE95D5DE /* LargeWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeWidgetView.swift; sourceTree = "<group>"; };
+		70DD82B83194DDF89BF26DC5 /* FoodFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodFlowView.swift; sourceTree = "<group>"; };
+		73CCC4AA8C87944D9F991C65 /* StaggeredEntrance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaggeredEntrance.swift; sourceTree = "<group>"; };
+		75B3094950D4AE8CFD6B63BA /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		75E189D29EE92C1AE41864AD /* ConnectionsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsSettingsView.swift; sourceTree = "<group>"; };
+		76B9160422C2A282B1A3DED9 /* WidgetGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetGalleryView.swift; sourceTree = "<group>"; };
+		7BA9C6E5A09D866CCCCF2D61 /* FoodReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodReviewView.swift; sourceTree = "<group>"; };
+		7E49F59FA8C9EDAE0F246F71 /* EnvironmentKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentKeys.swift; sourceTree = "<group>"; };
+		8650424784C33CB3CB365873 /* MedicationsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsSettingsView.swift; sourceTree = "<group>"; };
+		86AB9FB0E8152237165699C6 /* NotificationsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettingsView.swift; sourceTree = "<group>"; };
+		8B5C24F59E8CC0AE645F6235 /* SettingsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMainView.swift; sourceTree = "<group>"; };
+		983109295A59EEC4976333E9 /* GlucoseEntrySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseEntrySheet.swift; sourceTree = "<group>"; };
+		99C4B0DE598C6514B24D77E0 /* OnboardingWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeView.swift; sourceTree = "<group>"; };
+		A407AB8FFAECE6E7986FBC04 /* BPEntrySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BPEntrySheet.swift; sourceTree = "<group>"; };
+		A86B54683772DE0CCACE30C1 /* ConversationHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationHistoryView.swift; sourceTree = "<group>"; };
+		AC28162876AB2D76E8208246 /* ExportSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingsView.swift; sourceTree = "<group>"; };
+		AD2C83C8B8B44E26A078B2AD /* OnboardingAllergiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAllergiesView.swift; sourceTree = "<group>"; };
+		AF24BFD5364A098F2E372322 /* NoteEntrySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEntrySheet.swift; sourceTree = "<group>"; };
+		B1157597CD4CE8F56146256D /* VitaCorePersona */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCorePersona; path = Packages/VitaCorePersona; sourceTree = SOURCE_ROOT; };
+		B238A5706C30C3AE6B988FE4 /* OnboardingPermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsView.swift; sourceTree = "<group>"; };
+		B3340470A87EBD234BB6C8CE /* MonitoringDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringDetailView.swift; sourceTree = "<group>"; };
+		B8E6276A274E1F901FADBDB8 /* OnboardingMedicationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMedicationsView.swift; sourceTree = "<group>"; };
+		C1025E6F6076BF4E18052BD8 /* GoalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailView.swift; sourceTree = "<group>"; };
+		C48C98CDF3744D3E1D4887BA /* MedicationInteractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationInteractionView.swift; sourceTree = "<group>"; };
+		C4A5B5866C1C9D477600E2C6 /* ConditionsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionsSettingsView.swift; sourceTree = "<group>"; };
+		C5A7EBD6C19988B2C274EFFC /* VitaCoreNavigation */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreNavigation; path = Packages/VitaCoreNavigation; sourceTree = SOURCE_ROOT; };
+		CB55423142C8BC2CC3B3AA31 /* FoodFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodFlowCoordinator.swift; sourceTree = "<group>"; };
+		CD0898CCF64534D74A036EEE /* WatchBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchBannerView.swift; sourceTree = "<group>"; };
+		CEB6E8C18384648DB6AC1B87 /* LockScreenWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenWidgetView.swift; sourceTree = "<group>"; };
+		D7179080FD0C42A66FAA658E /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		D8EE80FC99697D90CF2C47E8 /* VitaCoreInference */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreInference; path = Packages/VitaCoreInference; sourceTree = SOURCE_ROOT; };
+		D9DAEFFA223FD7B9E7DED82B /* LoadingShimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingShimmer.swift; sourceTree = "<group>"; };
+		D9E32606E04C3DECB06A4FC7 /* MediumWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumWidgetView.swift; sourceTree = "<group>"; };
+		E27ADDE9AB474F781E8D36BF /* MetricDetailComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricDetailComponents.swift; sourceTree = "<group>"; };
+		E3F0822AAE5B6CE06D046AAC /* VitaCoreMock */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreMock; path = Packages/VitaCoreMock; sourceTree = SOURCE_ROOT; };
+		EA20B15769A1837DE7D662E6 /* OnboardingBasicProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingBasicProfileView.swift; sourceTree = "<group>"; };
+		ED2051747250CB7A018D4EB4 /* AlertHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHistoryView.swift; sourceTree = "<group>"; };
+		F5EF64D8BEB5CFA832CC3BEA /* LaunchRouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchRouterView.swift; sourceTree = "<group>"; };
+		F80F0851B01378269A8DCB76 /* BloodPressureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureDetailView.swift; sourceTree = "<group>"; };
+		F9D126E38EB91ADDDD5DB67B /* GoalsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsSettingsView.swift; sourceTree = "<group>"; };
+		FB68D3D75099132E345B14C4 /* OnboardingDownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingDownloadView.swift; sourceTree = "<group>"; };
+		FB93B7698E8246765A64B74B /* AccessibilityHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityHelpers.swift; sourceTree = "<group>"; };
+		FBA0B7C7D815480622EF3FA9 /* GlucoseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseDetailView.swift; sourceTree = "<group>"; };
+		FDD51A675238902FDDF7ED4E /* CriticalAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalAlertView.swift; sourceTree = "<group>"; };
+		FE4EE5ABA640B35CA1FE2770 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D4BD54DD36EE0506A89FDDDB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				066DEDFA74414751DD398356 /* VitaCoreContracts in Frameworks */,
+				B948D66F220496E7C1B29249 /* VitaCoreDesign in Frameworks */,
+				EB530BCF79144776AD1DFF01 /* VitaCoreMock in Frameworks */,
+				5C6F72A84B266A10FE77DB17 /* VitaCoreNavigation in Frameworks */,
+				51D37E04BBEB59005F50DC88 /* VitaCoreGraph in Frameworks */,
+				A7D94C1364828E1FB5FB1A9A /* VitaCoreInference in Frameworks */,
+				84A308A6F87208C86D44F288 /* VitaCoreSynthetic in Frameworks */,
+				3159F788E813F7BAF8BB0F5C /* VitaCorePersona in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		127B14E0FD700B6A6B9F1F8E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				01CDDC15575CD2429D3E46C7 /* AboutSettingsView.swift */,
+				054B2C9E50D98227C2C97EBB /* AllergiesSettingsView.swift */,
+				30C0628B6666EE39132C1649 /* BackupRestoreSettingsView.swift */,
+				C4A5B5866C1C9D477600E2C6 /* ConditionsSettingsView.swift */,
+				75E189D29EE92C1AE41864AD /* ConnectionsSettingsView.swift */,
+				AC28162876AB2D76E8208246 /* ExportSettingsView.swift */,
+				F9D126E38EB91ADDDD5DB67B /* GoalsSettingsView.swift */,
+				8650424784C33CB3CB365873 /* MedicationsSettingsView.swift */,
+				86AB9FB0E8152237165699C6 /* NotificationsSettingsView.swift */,
+				32685F65915E1692B6AD248A /* PrivacySettingsView.swift */,
+				27C373D4D1D854B0D0395BF2 /* ProfileSettingsView.swift */,
+				8B5C24F59E8CC0AE645F6235 /* SettingsMainView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		21CD0C98CEE8022AA2D06059 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				C1025E6F6076BF4E18052BD8 /* GoalDetailView.swift */,
+				3FE5C566F094E58418DCF08C /* HomeDashboardView.swift */,
+				4990BA5D26913A7219EE6B96 /* HomeDashboardViewModel.swift */,
+				B3340470A87EBD234BB6C8CE /* MonitoringDetailView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		3549910ACCACA5B0786D3F54 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				FB93B7698E8246765A64B74B /* AccessibilityHelpers.swift */,
+				75B3094950D4AE8CFD6B63BA /* HapticManager.swift */,
+				F5EF64D8BEB5CFA832CC3BEA /* LaunchRouterView.swift */,
+				D9DAEFFA223FD7B9E7DED82B /* LoadingShimmer.swift */,
+				73CCC4AA8C87944D9F991C65 /* StaggeredEntrance.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		44E526987F3E41FB8F420288 = {
+			isa = PBXGroup;
+			children = (
+				4DEE2033BF599A4142CF7ADC /* Packages */,
+				4670F4676DF70C8F26642DB7 /* VitaCoreApp */,
+				57A16B31EE7915A844612ECD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4670F4676DF70C8F26642DB7 /* VitaCoreApp */ = {
+			isa = PBXGroup;
+			children = (
+				FE4EE5ABA640B35CA1FE2770 /* ContentView.swift */,
+				7E49F59FA8C9EDAE0F246F71 /* EnvironmentKeys.swift */,
+				43244C5AF2BDA7706AA7BA4E /* VitaCoreApp.swift */,
+				BEAFD5609BA9E32BC1607920 /* Screens */,
+				D43922B737CEC85BB40FA272 /* ViewModels */,
+			);
+			path = VitaCoreApp;
+			sourceTree = "<group>";
+		};
+		4DEE2033BF599A4142CF7ADC /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				39B5167FB830529404889E73 /* VitaCoreContracts */,
+				2945F01F406A3BE561B436D9 /* VitaCoreDesign */,
+				2D3FF4C19791490E0D22CB6E /* VitaCoreGraph */,
+				D8EE80FC99697D90CF2C47E8 /* VitaCoreInference */,
+				E3F0822AAE5B6CE06D046AAC /* VitaCoreMock */,
+				C5A7EBD6C19988B2C274EFFC /* VitaCoreNavigation */,
+				B1157597CD4CE8F56146256D /* VitaCorePersona */,
+				2D183352AE5509E2A7C05496 /* VitaCoreSynthetic */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		57A16B31EE7915A844612ECD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5E3458BC5F637440F924F1EB /* VitaCore.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7AB4818613EECEBC5F2F85CC /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				1F790FB4253D515A84EB9D4A /* ChatComponents.swift */,
+				1C5A0B2E9817DDC8B8A38429 /* ChatView.swift */,
+				D7179080FD0C42A66FAA658E /* ChatViewModel.swift */,
+				A86B54683772DE0CCACE30C1 /* ConversationHistoryView.swift */,
+				1F024B4B90FF1C016DBE74A4 /* ProactiveSessionView.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		86DF6C96332B158C1973B4E6 /* FoodFlow */ = {
+			isa = PBXGroup;
+			children = (
+				40517B7C14F263E69FCC57C7 /* AllergenWarningView.swift */,
+				65A1E1F3FBFC7C997D4A65E7 /* AnalysisLoadingView.swift */,
+				56F33C1195929A3BCBA8F5D3 /* CameraCaptureView.swift */,
+				57FA8441CB0C438CC69B8DD3 /* FoodConfirmationView.swift */,
+				CB55423142C8BC2CC3B3AA31 /* FoodFlowCoordinator.swift */,
+				70DD82B83194DDF89BF26DC5 /* FoodFlowView.swift */,
+				7BA9C6E5A09D866CCCCF2D61 /* FoodReviewView.swift */,
+				C48C98CDF3744D3E1D4887BA /* MedicationInteractionView.swift */,
+				1D03E5A1FB2808387A889AFF /* QualityCheckView.swift */,
+			);
+			path = FoodFlow;
+			sourceTree = "<group>";
+		};
+		A8B5278CC01E9B3869BE3B77 /* MetricDetail */ = {
+			isa = PBXGroup;
+			children = (
+				F80F0851B01378269A8DCB76 /* BloodPressureDetailView.swift */,
+				FBA0B7C7D815480622EF3FA9 /* GlucoseDetailView.swift */,
+				6CAE1B81704508192D20686F /* HeartRateDetailView.swift */,
+				E27ADDE9AB474F781E8D36BF /* MetricDetailComponents.swift */,
+				280C45960FC62202408DF098 /* SleepDetailView.swift */,
+				05A347DC4F3A2C113CCFFC78 /* StepsDetailView.swift */,
+			);
+			path = MetricDetail;
+			sourceTree = "<group>";
+		};
+		BEAFD5609BA9E32BC1607920 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				DD321C035748137537E316D3 /* Alerts */,
+				7AB4818613EECEBC5F2F85CC /* Chat */,
+				86DF6C96332B158C1973B4E6 /* FoodFlow */,
+				21CD0C98CEE8022AA2D06059 /* Home */,
+				FF94E73A5F13A0165F429F5D /* Log */,
+				A8B5278CC01E9B3869BE3B77 /* MetricDetail */,
+				D12D004323E76EB25372C223 /* Onboarding */,
+				127B14E0FD700B6A6B9F1F8E /* Settings */,
+				3549910ACCACA5B0786D3F54 /* Shared */,
+				DD17345757A09FF6FDDD7627 /* Widgets */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		D12D004323E76EB25372C223 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				AD2C83C8B8B44E26A078B2AD /* OnboardingAllergiesView.swift */,
+				EA20B15769A1837DE7D662E6 /* OnboardingBasicProfileView.swift */,
+				6191620C9F3D6B3D6F291563 /* OnboardingConditionsView.swift */,
+				1DE3F100F2AA46AD754C05C9 /* OnboardingContainer.swift */,
+				FB68D3D75099132E345B14C4 /* OnboardingDownloadView.swift */,
+				4F4D485E3870B8693BE15F93 /* OnboardingFlowCoordinator.swift */,
+				03F800D90146E61EE980548C /* OnboardingGoalsView.swift */,
+				B8E6276A274E1F901FADBDB8 /* OnboardingMedicationsView.swift */,
+				B238A5706C30C3AE6B988FE4 /* OnboardingPermissionsView.swift */,
+				99C4B0DE598C6514B24D77E0 /* OnboardingWelcomeView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		D43922B737CEC85BB40FA272 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		DD17345757A09FF6FDDD7627 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				6D7E213E7195DE5EFE95D5DE /* LargeWidgetView.swift */,
+				CEB6E8C18384648DB6AC1B87 /* LockScreenWidgetView.swift */,
+				D9E32606E04C3DECB06A4FC7 /* MediumWidgetView.swift */,
+				76B9160422C2A282B1A3DED9 /* WidgetGalleryView.swift */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		DD321C035748137537E316D3 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				ED2051747250CB7A018D4EB4 /* AlertHistoryView.swift */,
+				3E71D4282210B984D12F4C42 /* AlertSheetView.swift */,
+				FDD51A675238902FDDF7ED4E /* CriticalAlertView.swift */,
+				CD0898CCF64534D74A036EEE /* WatchBannerView.swift */,
+			);
+			path = Alerts;
+			sourceTree = "<group>";
+		};
+		FF94E73A5F13A0165F429F5D /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				A407AB8FFAECE6E7986FBC04 /* BPEntrySheet.swift */,
+				0A81AA4A59C3AFB8ABF8284B /* FluidEntrySheet.swift */,
+				983109295A59EEC4976333E9 /* GlucoseEntrySheet.swift */,
+				1633135D94253FA8FAD7045C /* LogHubView.swift */,
+				AF24BFD5364A098F2E372322 /* NoteEntrySheet.swift */,
+				6239A2A27A68B4ACD36C7AE8 /* WeightEntrySheet.swift */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FD33A4DB6C093876D014B696 /* VitaCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D302FEEE94E70D0DC2A9BA5 /* Build configuration list for PBXNativeTarget "VitaCore" */;
+			buildPhases = (
+				07E95DC40FB4605BCFBB8633 /* Sources */,
+				D4BD54DD36EE0506A89FDDDB /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VitaCore;
+			packageProductDependencies = (
+				9401C487D3248C1B1421D8C6 /* VitaCoreContracts */,
+				66588BFC00AB96C04A810BB8 /* VitaCoreDesign */,
+				2A3415A76DC2C5207A3BD87E /* VitaCoreMock */,
+				8BB1D77EA1BF23D5D3FD045B /* VitaCoreNavigation */,
+				4B21F1E94BA3C7E7362B5913 /* VitaCoreGraph */,
+				6DF4404DC18B39D624127E12 /* VitaCoreInference */,
+				2959F865252CEDA5FF36C98E /* VitaCoreSynthetic */,
+				98A2FA363458673EDFBCEB7B /* VitaCorePersona */,
+			);
+			productName = VitaCore;
+			productReference = 5E3458BC5F637440F924F1EB /* VitaCore.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		12B36708BCF233AF01ECE13D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					FD33A4DB6C093876D014B696 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 3605E8785C5AACB9CC3EF53C /* Build configuration list for PBXProject "VitaCore" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 44E526987F3E41FB8F420288;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4C0F2404762393995535BA18 /* XCLocalSwiftPackageReference "Packages/VitaCoreContracts" */,
+				B337980B80FDEE982E0C007D /* XCLocalSwiftPackageReference "Packages/VitaCoreDesign" */,
+				F1397DC2CDB59D3F9A05052B /* XCLocalSwiftPackageReference "Packages/VitaCoreGraph" */,
+				309566DAE49EDF6ABF4370ED /* XCLocalSwiftPackageReference "Packages/VitaCoreInference" */,
+				BA4831477425357CF8A6C304 /* XCLocalSwiftPackageReference "Packages/VitaCoreMock" */,
+				A90D8A456F511B02884F45B8 /* XCLocalSwiftPackageReference "Packages/VitaCoreNavigation" */,
+				36CA14D880D64AD2D6E3646B /* XCLocalSwiftPackageReference "Packages/VitaCorePersona" */,
+				CB111E512D41EC3E20660251 /* XCLocalSwiftPackageReference "Packages/VitaCoreSynthetic" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 57A16B31EE7915A844612ECD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FD33A4DB6C093876D014B696 /* VitaCore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		07E95DC40FB4605BCFBB8633 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EECB322ED0F312684245DDBB /* AboutSettingsView.swift in Sources */,
+				57A12196D05B665BE379851C /* AccessibilityHelpers.swift in Sources */,
+				57269E86FDCA6EEC53CEDC4C /* AlertHistoryView.swift in Sources */,
+				E2B67C324E99DC8748D2942E /* AlertSheetView.swift in Sources */,
+				5EDF2B9DE951AC412BD527EA /* AllergenWarningView.swift in Sources */,
+				15174D964D6DAFC9C45797E3 /* AllergiesSettingsView.swift in Sources */,
+				B54D9030F467DB93B9D9EC0D /* AnalysisLoadingView.swift in Sources */,
+				2351461876E9FE5AE31B6121 /* BPEntrySheet.swift in Sources */,
+				9212C8ABC6A9034A221457DE /* BackupRestoreSettingsView.swift in Sources */,
+				B80DD0D5B057D30657217797 /* BloodPressureDetailView.swift in Sources */,
+				EB3355E205E400BFD9014838 /* CameraCaptureView.swift in Sources */,
+				307248ADD452420F8747E5D6 /* ChatComponents.swift in Sources */,
+				F09DF41B424335DC2ADE26E7 /* ChatView.swift in Sources */,
+				83DE27636702B79ABDB164EE /* ChatViewModel.swift in Sources */,
+				D8AA6041596B1FFF6C1147F0 /* ConditionsSettingsView.swift in Sources */,
+				4D9DE681AB17F9798B204D59 /* ConnectionsSettingsView.swift in Sources */,
+				BE61E4B5A6BFF422853F23A2 /* ContentView.swift in Sources */,
+				647D0A3D67C220D41D9918C3 /* ConversationHistoryView.swift in Sources */,
+				F5BCF1019BD76702554F30A8 /* CriticalAlertView.swift in Sources */,
+				62EA345E7F3A8F3585345FEB /* EnvironmentKeys.swift in Sources */,
+				F011B5F1A5FBB5084FE8FC72 /* ExportSettingsView.swift in Sources */,
+				E27ECC7B3EE4D2D03A7B8C93 /* FluidEntrySheet.swift in Sources */,
+				A2E4300B9825A9DCB2698321 /* FoodConfirmationView.swift in Sources */,
+				D2B22869F4AAE4C8C120B1A5 /* FoodFlowCoordinator.swift in Sources */,
+				1B9A00A8C579BD245CBAEACD /* FoodFlowView.swift in Sources */,
+				9F7CE62F9C8CD7D8563C0EF9 /* FoodReviewView.swift in Sources */,
+				D0FCD528470864B7EA59D293 /* GlucoseDetailView.swift in Sources */,
+				3B3D247259455AFA6904F882 /* GlucoseEntrySheet.swift in Sources */,
+				1986C288606D6B98E75ED2BD /* GoalDetailView.swift in Sources */,
+				EFC8BBBF330882442D355BBE /* GoalsSettingsView.swift in Sources */,
+				53834BB0B46CC422C4FE69EB /* HapticManager.swift in Sources */,
+				03D5937C7CAF14BAE42A0AE8 /* HeartRateDetailView.swift in Sources */,
+				4A541D49C944B95210862B46 /* HomeDashboardView.swift in Sources */,
+				E07F6543152A0B645D04E1A8 /* HomeDashboardViewModel.swift in Sources */,
+				38648D6221F18BA50DA83FA1 /* LargeWidgetView.swift in Sources */,
+				92445FABC26794B9B368FBA1 /* LaunchRouterView.swift in Sources */,
+				5BD7ED2D9E75F5EC42FBEF6A /* LoadingShimmer.swift in Sources */,
+				73AA6FB225EC0B48C30A4FEB /* LockScreenWidgetView.swift in Sources */,
+				288146AD9690DFB0389BB9AF /* LogHubView.swift in Sources */,
+				C497A9F11441F2FFBD6A5A52 /* MedicationInteractionView.swift in Sources */,
+				00DE438642D7E3849FD0D1F7 /* MedicationsSettingsView.swift in Sources */,
+				6558E29A919884338BF1A39A /* MediumWidgetView.swift in Sources */,
+				03C177E817FFF8C87B07A634 /* MetricDetailComponents.swift in Sources */,
+				A6996FBDEA8C141B75060281 /* MonitoringDetailView.swift in Sources */,
+				4F1AC114ED2EB2463F67B725 /* NoteEntrySheet.swift in Sources */,
+				8E6F8CED83AB80A106614BA8 /* NotificationsSettingsView.swift in Sources */,
+				DF4F4311A4BB466E11E9BBC9 /* OnboardingAllergiesView.swift in Sources */,
+				19A379CD24ED1AA7B9C64EC5 /* OnboardingBasicProfileView.swift in Sources */,
+				59162D53AEA50F31902A156F /* OnboardingConditionsView.swift in Sources */,
+				7B1EF49DEC2E97F1EF95EE9F /* OnboardingContainer.swift in Sources */,
+				5EC5F45C337CB9CDC7168FB5 /* OnboardingDownloadView.swift in Sources */,
+				F1D4377B3C91F159862BCF02 /* OnboardingFlowCoordinator.swift in Sources */,
+				52D060F7A1D4398F9E595046 /* OnboardingGoalsView.swift in Sources */,
+				EDEA38F60C46470D5F7C7AA2 /* OnboardingMedicationsView.swift in Sources */,
+				8F18AB822A1DBA7B42432AF2 /* OnboardingPermissionsView.swift in Sources */,
+				9E6093246ED63107EF885932 /* OnboardingWelcomeView.swift in Sources */,
+				EB814E670D9180850688A52F /* PrivacySettingsView.swift in Sources */,
+				5F20BFAAAE7223A57ACD0515 /* ProactiveSessionView.swift in Sources */,
+				BFB4AA3477350A27ACD28B8E /* ProfileSettingsView.swift in Sources */,
+				55D3CEE6EF48CE18D676C6A1 /* QualityCheckView.swift in Sources */,
+				D5BD15911E2E07A0127EA104 /* SettingsMainView.swift in Sources */,
+				AC5FAD03A9049002B303C9EE /* SleepDetailView.swift in Sources */,
+				D5A0271F8573A2E7CEBCC508 /* StaggeredEntrance.swift in Sources */,
+				171545A8370C4503B1A596C7 /* StepsDetailView.swift in Sources */,
+				62C9A4C6AB4623F6FBFD0C5E /* VitaCoreApp.swift in Sources */,
+				6645F4F4EE20C33624BE2EE7 /* WatchBannerView.swift in Sources */,
+				F44F0ABF4F758967B34FF254 /* WeightEntrySheet.swift in Sources */,
+				489DEC668E1672854C680947 /* WidgetGalleryView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		278D1A397CACAEB407CD24E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		394277BC4A4E0B8E01BB8E23 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		74E9B7F66F5DC24D7D67CA9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_CFBundleDisplayName = VitaCore;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vitacore.app;
+				PRODUCT_NAME = VitaCore;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B45A781931A2BA099A3992EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_CFBundleDisplayName = VitaCore;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vitacore.app;
+				PRODUCT_NAME = VitaCore;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0D302FEEE94E70D0DC2A9BA5 /* Build configuration list for PBXNativeTarget "VitaCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B45A781931A2BA099A3992EE /* Debug */,
+				74E9B7F66F5DC24D7D67CA9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3605E8785C5AACB9CC3EF53C /* Build configuration list for PBXProject "VitaCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				278D1A397CACAEB407CD24E9 /* Debug */,
+				394277BC4A4E0B8E01BB8E23 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		309566DAE49EDF6ABF4370ED /* XCLocalSwiftPackageReference "Packages/VitaCoreInference" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VitaCoreInference;
+		};
+		36CA14D880D64AD2D6E3646B /* XCLocalSwiftPackageReference "Packages/VitaCorePersona" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VitaCorePersona;
+		};
+		4C0F2404762393995535BA18 /* XCLocalSwiftPackageReference "Packages/VitaCoreContracts" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VitaCoreContracts;
+		};
+		A90D8A456F511B02884F45B8 /* XCLocalSwiftPackageReference "Packages/VitaCoreNavigation" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VitaCoreNavigation;
+		};
+		B337980B80FDEE982E0C007D /* XCLocalSwiftPackageReference "Packages/VitaCoreDesign" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VitaCoreDesign;
+		};
+		BA4831477425357CF8A6C304 /* XCLocalSwiftPackageReference "Packages/VitaCoreMock" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VitaCoreMock;
+		};
+		CB111E512D41EC3E20660251 /* XCLocalSwiftPackageReference "Packages/VitaCoreSynthetic" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VitaCoreSynthetic;
+		};
+		F1397DC2CDB59D3F9A05052B /* XCLocalSwiftPackageReference "Packages/VitaCoreGraph" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VitaCoreGraph;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2959F865252CEDA5FF36C98E /* VitaCoreSynthetic */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VitaCoreSynthetic;
+		};
+		2A3415A76DC2C5207A3BD87E /* VitaCoreMock */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VitaCoreMock;
+		};
+		4B21F1E94BA3C7E7362B5913 /* VitaCoreGraph */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VitaCoreGraph;
+		};
+		66588BFC00AB96C04A810BB8 /* VitaCoreDesign */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VitaCoreDesign;
+		};
+		6DF4404DC18B39D624127E12 /* VitaCoreInference */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VitaCoreInference;
+		};
+		8BB1D77EA1BF23D5D3FD045B /* VitaCoreNavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VitaCoreNavigation;
+		};
+		9401C487D3248C1B1421D8C6 /* VitaCoreContracts */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VitaCoreContracts;
+		};
+		98A2FA363458673EDFBCEB7B /* VitaCorePersona */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VitaCorePersona;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 12B36708BCF233AF01ECE13D /* Project object */;
+}

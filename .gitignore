@@ -1,0 +1,30 @@
+# Xcode
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+
+# Swift Package Manager
+.build/
+Packages/*/.build/
+.swiftpm/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Model weights (downloaded at runtime, not checked in)
+*.safetensors
+*.mlpackage
+*.gguf
+
+# Claude
+.claude/
+
+# Specify caches
+.specify/presets/.cache/
+
+# Secrets
+*.env
+*.pem
+*.p12
