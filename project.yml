@@ -38,6 +38,8 @@ packages:
     path: Packages/VitaCoreThreshold
   VitaCoreSkillBus:
     path: Packages/VitaCoreSkillBus
+  VitaCoreHeartbeat:
+    path: Packages/VitaCoreHeartbeat
 
 targets:
   VitaCore:
@@ -59,6 +61,7 @@ targets:
       - package: VitaCorePersona
       - package: VitaCoreThreshold
       - package: VitaCoreSkillBus
+      - package: VitaCoreHeartbeat
     settings:
       base:
         INFOPLIST_FILE: ""

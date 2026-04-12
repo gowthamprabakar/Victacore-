@@ -9,6 +9,7 @@ import VitaCorePersona
 import VitaCoreThreshold
 import VitaCoreInference
 import VitaCoreSkillBus
+import VitaCoreHeartbeat
 #if DEMO_MODE
 import VitaCoreSynthetic
 #endif
@@ -29,6 +30,7 @@ struct VitaCoreApp: App {
     private let thresholdEngine: VitaCoreThresholdEngine
     private let inferenceProvider: InferenceProviderProtocol
     private let skillBus: SkillBusProtocol
+    private let heartbeatEngine: HeartbeatEngine
     #if canImport(HealthKit)
     private var healthKitSkill: HealthKitSkill?
     #endif
@@ -100,6 +102,22 @@ struct VitaCoreApp: App {
 
         self.skillBus = bus
         print("✅ VitaCoreSkillBus: \(bus.registeredSkillCount) skills registered")
+
+        // C09 HeartbeatEngine — foreground monitoring loop. Evaluates
+        // readings against ThresholdEngine, fires alerts on crossings.
+        // Starts when app enters foreground; stops in background.
+        let heartbeat = HeartbeatEngine(
+            graphStore: graph,
+            thresholdEngine: self.thresholdEngine,
+            cycleInterval: 60
+        )
+        heartbeat.onAlert = { alert in
+            print("🚨 HeartbeatAlert: \(alert.level.rawValue) — \(alert.message)")
+            // TODO: Wire to AlertPresentationManager in Sprint 3.C
+        }
+        self.heartbeatEngine = heartbeat
+        heartbeat.start()
+        print("✅ HeartbeatEngine: monitoring started (60s cycle)")
 
         // Now that all stored properties are set, it's safe to call instance methods.
         configureAppearance()
