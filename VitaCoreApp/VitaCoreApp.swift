@@ -7,6 +7,7 @@ import VitaCoreDesign
 import VitaCoreGraph
 import VitaCorePersona
 import VitaCoreThreshold
+import VitaCoreInference
 #if DEMO_MODE
 import VitaCoreSynthetic
 #endif
@@ -25,6 +26,7 @@ struct VitaCoreApp: App {
     private let graphStore: GraphStoreProtocol
     private let personaEngine: PersonaEngineProtocol
     private let thresholdEngine: VitaCoreThresholdEngine
+    private let inferenceProvider: InferenceProviderProtocol
 
     init() {
         // Initialise ALL stored properties first (Swift init rules).
@@ -59,6 +61,24 @@ struct VitaCoreApp: App {
         // 60s cache TTL, invalidate on persona mutation.
         self.thresholdEngine = VitaCoreThresholdEngine(personaEngine: persona)
         print("✅ VitaCoreThreshold: engine initialised with 60s cache TTL")
+
+        // C10/C11 InferenceProvider — on-device Gemma runtime with
+        // conversation persistence. Falls back to rule-based insights
+        // when the model isn't downloaded yet (no crash, no blank UI).
+        let inference: InferenceProviderProtocol
+        do {
+            let gemmaRuntime = Gemma4Runtime(quantisation: .gemma3n_q4)
+            let convStore = try ConversationStore.defaultStore()
+            inference = VitaCoreInferenceProvider(
+                runtime: gemmaRuntime,
+                conversationStore: convStore
+            )
+            print("✅ VitaCoreInference: provider initialised (model download deferred to onboarding)")
+        } catch {
+            print("⚠️ VitaCoreInference: init failed (\(error)) — falling back to mock")
+            inference = MockDataProvider.shared.inferenceProvider
+        }
+        self.inferenceProvider = inference
 
         // Now that all stored properties are set, it's safe to call instance methods.
         configureAppearance()
@@ -108,7 +128,7 @@ struct VitaCoreApp: App {
                 // Inject protocol implementations as environment values
                 .environment(\.graphStore, graphStore)        // ← REAL (GRDB)
                 .environment(\.personaEngine, personaEngine)  // ← REAL (VitaCorePersonaEngine)
-                .environment(\.inferenceProvider, dataProvider.inferenceProvider)
+                .environment(\.inferenceProvider, inferenceProvider) // ← REAL (VitaCoreInferenceProvider)
                 .environment(\.skillBus, dataProvider.skillBus)
                 .environment(\.alertRouter, dataProvider.alertRouter)
         }

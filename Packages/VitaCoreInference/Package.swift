@@ -21,13 +21,13 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../VitaCoreContracts"),
-        // MLX-Swift model containers, tokenizers, LLM generation loop.
-        // mlx-swift-examples vends `MLXLLM`, `MLXLMCommon`, and friends as
-        // SwiftPM products; pinning to 2.x (the current major) keeps us on
-        // the stable API surface that supports Gemma 4 out of the box.
         .package(
             url: "https://github.com/ml-explore/mlx-swift-examples.git",
             from: "2.29.1"
+        ),
+        .package(
+            url: "https://github.com/groue/GRDB.swift.git",
+            from: "7.10.0"
         )
     ],
     targets: [
@@ -44,7 +44,8 @@ let package = Package(
                 .product(name: "MLXVLM", package: "mlx-swift-examples"),
                 // Shared language-model plumbing (tokeniser, KV cache,
                 // generate loop, UserInput types with image support).
-                .product(name: "MLXLMCommon", package: "mlx-swift-examples")
+                .product(name: "MLXLMCommon", package: "mlx-swift-examples"),
+                .product(name: "GRDB", package: "GRDB.swift")
             ]
         ),
         .testTarget(
