@@ -83,6 +83,7 @@
 		F1D4377B3C91F159862BCF02 /* OnboardingFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4D485E3870B8693BE15F93 /* OnboardingFlowCoordinator.swift */; };
 		F44F0ABF4F758967B34FF254 /* WeightEntrySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239A2A27A68B4ACD36C7AE8 /* WeightEntrySheet.swift */; };
 		F5BCF1019BD76702554F30A8 /* CriticalAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD51A675238902FDDF7ED4E /* CriticalAlertView.swift */; };
+		F799FB1C96295E9D8D807A44 /* VitaCoreThreshold in Frameworks */ = {isa = PBXBuildFile; productRef = 2C76744B5F7D1CF573BF0A4F /* VitaCoreThreshold */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +147,7 @@
 		C5A7EBD6C19988B2C274EFFC /* VitaCoreNavigation */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreNavigation; path = Packages/VitaCoreNavigation; sourceTree = SOURCE_ROOT; };
 		CB55423142C8BC2CC3B3AA31 /* FoodFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodFlowCoordinator.swift; sourceTree = "<group>"; };
 		CD0898CCF64534D74A036EEE /* WatchBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchBannerView.swift; sourceTree = "<group>"; };
+		CE98294221987BF9BAE30A36 /* VitaCoreThreshold */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreThreshold; path = Packages/VitaCoreThreshold; sourceTree = SOURCE_ROOT; };
 		CEB6E8C18384648DB6AC1B87 /* LockScreenWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenWidgetView.swift; sourceTree = "<group>"; };
 		D7179080FD0C42A66FAA658E /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		D8EE80FC99697D90CF2C47E8 /* VitaCoreInference */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreInference; path = Packages/VitaCoreInference; sourceTree = SOURCE_ROOT; };
@@ -178,6 +180,7 @@
 				A7D94C1364828E1FB5FB1A9A /* VitaCoreInference in Frameworks */,
 				84A308A6F87208C86D44F288 /* VitaCoreSynthetic in Frameworks */,
 				3159F788E813F7BAF8BB0F5C /* VitaCorePersona in Frameworks */,
+				F799FB1C96295E9D8D807A44 /* VitaCoreThreshold in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +261,7 @@
 				C5A7EBD6C19988B2C274EFFC /* VitaCoreNavigation */,
 				B1157597CD4CE8F56146256D /* VitaCorePersona */,
 				2D183352AE5509E2A7C05496 /* VitaCoreSynthetic */,
+				CE98294221987BF9BAE30A36 /* VitaCoreThreshold */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -411,6 +415,7 @@
 				6DF4404DC18B39D624127E12 /* VitaCoreInference */,
 				2959F865252CEDA5FF36C98E /* VitaCoreSynthetic */,
 				98A2FA363458673EDFBCEB7B /* VitaCorePersona */,
+				2C76744B5F7D1CF573BF0A4F /* VitaCoreThreshold */,
 			);
 			productName = VitaCore;
 			productReference = 5E3458BC5F637440F924F1EB /* VitaCore.app */;
@@ -449,6 +454,7 @@
 				A90D8A456F511B02884F45B8 /* XCLocalSwiftPackageReference "Packages/VitaCoreNavigation" */,
 				36CA14D880D64AD2D6E3646B /* XCLocalSwiftPackageReference "Packages/VitaCorePersona" */,
 				CB111E512D41EC3E20660251 /* XCLocalSwiftPackageReference "Packages/VitaCoreSynthetic" */,
+				5509D81A145BFDEF8A895EC8 /* XCLocalSwiftPackageReference "Packages/VitaCoreThreshold" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 57A16B31EE7915A844612ECD /* Products */;
@@ -760,6 +766,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/VitaCoreContracts;
 		};
+		5509D81A145BFDEF8A895EC8 /* XCLocalSwiftPackageReference "Packages/VitaCoreThreshold" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VitaCoreThreshold;
+		};
 		A90D8A456F511B02884F45B8 /* XCLocalSwiftPackageReference "Packages/VitaCoreNavigation" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/VitaCoreNavigation;
@@ -790,6 +800,10 @@
 		2A3415A76DC2C5207A3BD87E /* VitaCoreMock */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = VitaCoreMock;
+		};
+		2C76744B5F7D1CF573BF0A4F /* VitaCoreThreshold */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VitaCoreThreshold;
 		};
 		4B21F1E94BA3C7E7362B5913 /* VitaCoreGraph */ = {
 			isa = XCSwiftPackageProductDependency;

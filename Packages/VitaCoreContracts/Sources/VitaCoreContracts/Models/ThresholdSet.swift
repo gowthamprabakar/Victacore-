@@ -53,12 +53,15 @@ public struct MetricThreshold: Identifiable, Codable, Sendable, Hashable {
     }
 
     /// Classifies a scalar value against the defined bands.
-    /// The most severe matching band is returned.
+    /// Bands are checked from tightest (safe) to widest (critical).
+    /// A value inside the safe band is safe; outside safe but inside
+    /// watch is watch; outside watch but inside alert is alert;
+    /// anything else is critical.
     public func classify(value: Double) -> ThresholdBand {
-        if criticalBand.contains(value) { return .critical }
-        if alertBand.contains(value)    { return .alert }
-        if watchBand.contains(value)    { return .watch }
-        return .safe
+        if safeBand.contains(value)  { return .safe }
+        if watchBand.contains(value) { return .watch }
+        if alertBand.contains(value) { return .alert }
+        return .critical
     }
 }
 

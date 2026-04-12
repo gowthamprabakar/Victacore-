@@ -34,6 +34,8 @@ packages:
     path: Packages/VitaCoreSynthetic
   VitaCorePersona:
     path: Packages/VitaCorePersona
+  VitaCoreThreshold:
+    path: Packages/VitaCoreThreshold
 
 targets:
   VitaCore:
@@ -53,6 +55,7 @@ targets:
       - package: VitaCoreInference
       - package: VitaCoreSynthetic
       - package: VitaCorePersona
+      - package: VitaCoreThreshold
     settings:
       base:
         INFOPLIST_FILE: ""

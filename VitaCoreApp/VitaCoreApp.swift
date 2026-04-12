@@ -6,6 +6,7 @@ import VitaCoreNavigation
 import VitaCoreDesign
 import VitaCoreGraph
 import VitaCorePersona
+import VitaCoreThreshold
 #if DEMO_MODE
 import VitaCoreSynthetic
 #endif
@@ -23,6 +24,7 @@ struct VitaCoreApp: App {
     private let dataProvider = MockDataProvider.shared
     private let graphStore: GraphStoreProtocol
     private let personaEngine: PersonaEngineProtocol
+    private let thresholdEngine: VitaCoreThresholdEngine
 
     init() {
         // Initialise ALL stored properties first (Swift init rules).
@@ -51,6 +53,12 @@ struct VitaCoreApp: App {
             persona = MockDataProvider.shared.personaEngine
         }
         self.personaEngine = persona
+
+        // C14 ThresholdEngine — resolves per-user metric bands from
+        // persona conditions + medications + clinician overrides.
+        // 60s cache TTL, invalidate on persona mutation.
+        self.thresholdEngine = VitaCoreThresholdEngine(personaEngine: persona)
+        print("✅ VitaCoreThreshold: engine initialised with 60s cache TTL")
 
         // Now that all stored properties are set, it's safe to call instance methods.
         configureAppearance()
