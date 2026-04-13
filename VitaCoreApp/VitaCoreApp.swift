@@ -217,6 +217,15 @@ struct VitaCoreApp: App {
             print(granted ? "✅ Notifications: authorised" : "⚠️ Notifications: denied")
         }
 
+        // Sprint 7 S-03: 90-day data retention. Purge old readings on launch.
+        Task.detached {
+            let cutoff = Date().addingTimeInterval(-90 * 86400)
+            for metric in MetricType.allCases {
+                try? await graph.purgeReadings(for: metric, olderThan: cutoff)
+            }
+            print("✅ Data retention: purged readings older than 90 days")
+        }
+
         // Sprint 2.B: HealthKit authorization + backfill on first launch.
         // The system dialog shows once; subsequent launches are no-ops.
         #if canImport(HealthKit)

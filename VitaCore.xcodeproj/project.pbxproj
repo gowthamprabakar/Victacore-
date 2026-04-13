@@ -23,6 +23,7 @@
 		2A218AE4CF640DDB927191A3 /* MetricTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0F501523B5B737A998F5F0 /* MetricTooltip.swift */; };
 		307248ADD452420F8747E5D6 /* ChatComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F790FB4253D515A84EB9D4A /* ChatComponents.swift */; };
 		3159F788E813F7BAF8BB0F5C /* VitaCorePersona in Frameworks */ = {isa = PBXBuildFile; productRef = 98A2FA363458673EDFBCEB7B /* VitaCorePersona */; };
+		37B3D19532D6D2BF7DA057DB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CFE13AE12E0DB38231E6E9E0 /* PrivacyInfo.xcprivacy */; };
 		38648D6221F18BA50DA83FA1 /* LargeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E213E7195DE5EFE95D5DE /* LargeWidgetView.swift */; };
 		3B3D247259455AFA6904F882 /* GlucoseEntrySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983109295A59EEC4976333E9 /* GlucoseEntrySheet.swift */; };
 		489DEC668E1672854C680947 /* WidgetGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B9160422C2A282B1A3DED9 /* WidgetGalleryView.swift */; };
@@ -155,6 +156,7 @@
 		CD0898CCF64534D74A036EEE /* WatchBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchBannerView.swift; sourceTree = "<group>"; };
 		CE98294221987BF9BAE30A36 /* VitaCoreThreshold */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreThreshold; path = Packages/VitaCoreThreshold; sourceTree = SOURCE_ROOT; };
 		CEB6E8C18384648DB6AC1B87 /* LockScreenWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenWidgetView.swift; sourceTree = "<group>"; };
+		CFE13AE12E0DB38231E6E9E0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D7179080FD0C42A66FAA658E /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		D8EE80FC99697D90CF2C47E8 /* VitaCoreInference */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreInference; path = Packages/VitaCoreInference; sourceTree = SOURCE_ROOT; };
 		D9DAEFFA223FD7B9E7DED82B /* LoadingShimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingShimmer.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 			children = (
 				FE4EE5ABA640B35CA1FE2770 /* ContentView.swift */,
 				7E49F59FA8C9EDAE0F246F71 /* EnvironmentKeys.swift */,
+				CFE13AE12E0DB38231E6E9E0 /* PrivacyInfo.xcprivacy */,
 				43244C5AF2BDA7706AA7BA4E /* VitaCoreApp.swift */,
 				BEAFD5609BA9E32BC1607920 /* Screens */,
 				D43922B737CEC85BB40FA272 /* ViewModels */,
@@ -414,6 +417,7 @@
 			buildConfigurationList = 0D302FEEE94E70D0DC2A9BA5 /* Build configuration list for PBXNativeTarget "VitaCore" */;
 			buildPhases = (
 				07E95DC40FB4605BCFBB8633 /* Sources */,
+				ED774DF2850D8AFF38280B7B /* Resources */,
 				D4BD54DD36EE0506A89FDDDB /* Frameworks */,
 			);
 			buildRules = (
@@ -486,6 +490,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ED774DF2850D8AFF38280B7B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37B3D19532D6D2BF7DA057DB /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		07E95DC40FB4605BCFBB8633 /* Sources */ = {
