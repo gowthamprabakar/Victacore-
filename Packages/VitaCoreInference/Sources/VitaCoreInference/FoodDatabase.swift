@@ -42,9 +42,20 @@ public actor FoodDatabase {
     // MARK: Factory
     // -------------------------------------------------------------------------
 
-    /// Opens the bundled food database. Creates it on first access if
-    /// it doesn't exist yet in Application Support.
+    /// Cached singleton instance to prevent multiple DatabaseQueue
+    /// instances opening the same file (causes SQLite lock contention).
+    private static var _shared: FoodDatabase?
+
+    /// Opens the bundled food database. Singleton — only one instance
+    /// exists per process lifetime.
     public static func shared() throws -> FoodDatabase {
+        if let cached = _shared { return cached }
+        let instance = try _createShared()
+        _shared = instance
+        return instance
+    }
+
+    private static func _createShared() throws -> FoodDatabase {
         let fm = FileManager.default
         let appSupport = try fm.url(
             for: .applicationSupportDirectory,
@@ -58,9 +69,15 @@ public actor FoodDatabase {
         }
         let dbPath = dir.appendingPathComponent("vitacore_food.sqlite")
 
-        // If the DB doesn't exist yet, create and seed it.
+        // Copy the bundled pre-built USDA database on first access.
+        // 7,873 foods from USDA SR Legacy + 86 South Asian + International.
         if !fm.fileExists(atPath: dbPath.path) {
-            try Self.createAndSeed(at: dbPath.path)
+            if let bundled = Bundle.module.url(forResource: "vitacore_food", withExtension: "sqlite") {
+                try fm.copyItem(at: bundled, to: dbPath)
+            } else {
+                // Fallback: create and seed from code if bundle missing.
+                try Self.createAndSeed(at: dbPath.path)
+            }
         }
 
         let queue = try DatabaseQueue(path: dbPath.path)
