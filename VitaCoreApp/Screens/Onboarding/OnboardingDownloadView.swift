@@ -16,6 +16,10 @@ struct OnboardingDownloadView: View {
     /// Called when onboarding is fully complete and the app should launch.
     let onComplete: () -> Void
 
+    /// Sprint 4 O-02: closure that triggers real Gemma model download.
+    /// Receives a progress callback (0.0-1.0). Nil = simulated download.
+    var onStartDownload: ((@Sendable @escaping (Double) -> Void) async throws -> Void)? = nil
+
     // -------------------------------------------------------------------------
     // MARK: State
     // -------------------------------------------------------------------------
@@ -237,16 +241,35 @@ struct OnboardingDownloadView: View {
         // Start ambient orb breathing
         orbScale = 1.06
 
-        // Simulate download progress over ~8 seconds
-        progressTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            if progress < 1.0 {
-                let increment = Double.random(in: 0.008...0.018)
-                withAnimation {
-                    progress = min(1.0, progress + increment)
+        if let onStartDownload {
+            // Sprint 4 O-02: real model download via Gemma4Runtime.load(progress:)
+            Task {
+                do {
+                    try await onStartDownload { fraction in
+                        Task { @MainActor in
+                            withAnimation { progress = fraction }
+                        }
+                    }
+                    await MainActor.run { finishDownload() }
+                } catch {
+                    // Download failed — allow skip.
+                    await MainActor.run {
+                        withAnimation { isComplete = true; showCompletionUI = true }
+                    }
                 }
-            } else {
-                timer.invalidate()
-                finishDownload()
+            }
+        } else {
+            // Simulator fallback: simulate download progress over ~8 seconds
+            progressTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+                if progress < 1.0 {
+                    let increment = Double.random(in: 0.008...0.018)
+                    withAnimation {
+                        progress = min(1.0, progress + increment)
+                    }
+                } else {
+                    timer.invalidate()
+                    finishDownload()
+                }
             }
         }
     }

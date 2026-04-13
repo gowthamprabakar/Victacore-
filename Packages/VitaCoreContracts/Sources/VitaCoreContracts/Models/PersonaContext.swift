@@ -232,6 +232,17 @@ public struct DataQualityFlag: Identifiable, Codable, Sendable, Hashable {
     }
 }
 
+// MARK: - ActivityStatus (Sprint 4 O-04)
+
+/// The user's current activity status. MiroFish adjusts recommendations
+/// when the user is sick, injured, or resting.
+public enum ActivityStatus: String, Codable, Sendable, Hashable, CaseIterable {
+    case active     // Normal — full recommendations
+    case sick       // Reduce exercise, prioritise rest
+    case injured    // Avoid specific movements
+    case resting    // Intentional rest day
+}
+
 // MARK: - PersonaContext (frozen contract)
 
 /// The complete, user-specific health context used to personalise every inference.
@@ -247,6 +258,9 @@ public struct PersonaContext: Identifiable, Codable, Sendable, Hashable {
     public let thresholdOverrides: [ThresholdOverride]
     public let dataQualityFlags: [DataQualityFlag]
     public let goalProgress: [GoalProgress]
+    /// Sprint 4 O-04: user's current activity status. Optional for
+    /// backwards compatibility with existing stored blobs.
+    public let activityStatus: ActivityStatus?
 
     public init(
         userId: UUID,
@@ -258,7 +272,8 @@ public struct PersonaContext: Identifiable, Codable, Sendable, Hashable {
         responseProfiles: [ResponseProfileSummary] = [],
         thresholdOverrides: [ThresholdOverride] = [],
         dataQualityFlags: [DataQualityFlag] = [],
-        goalProgress: [GoalProgress] = []
+        goalProgress: [GoalProgress] = [],
+        activityStatus: ActivityStatus? = .active
     ) {
         self.userId = userId
         self.activeConditions = activeConditions
@@ -270,5 +285,6 @@ public struct PersonaContext: Identifiable, Codable, Sendable, Hashable {
         self.thresholdOverrides = thresholdOverrides
         self.dataQualityFlags = dataQualityFlags
         self.goalProgress = goalProgress
+        self.activityStatus = activityStatus
     }
 }

@@ -20,6 +20,7 @@
 		1B9A00A8C579BD245CBAEACD /* FoodFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD82B83194DDF89BF26DC5 /* FoodFlowView.swift */; };
 		2351461876E9FE5AE31B6121 /* BPEntrySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A407AB8FFAECE6E7986FBC04 /* BPEntrySheet.swift */; };
 		288146AD9690DFB0389BB9AF /* LogHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1633135D94253FA8FAD7045C /* LogHubView.swift */; };
+		2A218AE4CF640DDB927191A3 /* MetricTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0F501523B5B737A998F5F0 /* MetricTooltip.swift */; };
 		307248ADD452420F8747E5D6 /* ChatComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F790FB4253D515A84EB9D4A /* ChatComponents.swift */; };
 		3159F788E813F7BAF8BB0F5C /* VitaCorePersona in Frameworks */ = {isa = PBXBuildFile; productRef = 98A2FA363458673EDFBCEB7B /* VitaCorePersona */; };
 		38648D6221F18BA50DA83FA1 /* LargeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E213E7195DE5EFE95D5DE /* LargeWidgetView.swift */; };
@@ -158,6 +159,7 @@
 		D8EE80FC99697D90CF2C47E8 /* VitaCoreInference */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreInference; path = Packages/VitaCoreInference; sourceTree = SOURCE_ROOT; };
 		D9DAEFFA223FD7B9E7DED82B /* LoadingShimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingShimmer.swift; sourceTree = "<group>"; };
 		D9E32606E04C3DECB06A4FC7 /* MediumWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumWidgetView.swift; sourceTree = "<group>"; };
+		DD0F501523B5B737A998F5F0 /* MetricTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricTooltip.swift; sourceTree = "<group>"; };
 		E27ADDE9AB474F781E8D36BF /* MetricDetailComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricDetailComponents.swift; sourceTree = "<group>"; };
 		E3F0822AAE5B6CE06D046AAC /* VitaCoreMock */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VitaCoreMock; path = Packages/VitaCoreMock; sourceTree = SOURCE_ROOT; };
 		EA20B15769A1837DE7D662E6 /* OnboardingBasicProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingBasicProfileView.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				75B3094950D4AE8CFD6B63BA /* HapticManager.swift */,
 				F5EF64D8BEB5CFA832CC3BEA /* LaunchRouterView.swift */,
 				D9DAEFFA223FD7B9E7DED82B /* LoadingShimmer.swift */,
+				DD0F501523B5B737A998F5F0 /* MetricTooltip.swift */,
 				73CCC4AA8C87944D9F991C65 /* StaggeredEntrance.swift */,
 			);
 			path = Shared;
@@ -532,6 +535,7 @@
 				00DE438642D7E3849FD0D1F7 /* MedicationsSettingsView.swift in Sources */,
 				6558E29A919884338BF1A39A /* MediumWidgetView.swift in Sources */,
 				03C177E817FFF8C87B07A634 /* MetricDetailComponents.swift in Sources */,
+				2A218AE4CF640DDB927191A3 /* MetricTooltip.swift in Sources */,
 				A6996FBDEA8C141B75060281 /* MonitoringDetailView.swift in Sources */,
 				4F1AC114ED2EB2463F67B725 /* NoteEntrySheet.swift in Sources */,
 				8E6F8CED83AB80A106614BA8 /* NotificationsSettingsView.swift in Sources */,

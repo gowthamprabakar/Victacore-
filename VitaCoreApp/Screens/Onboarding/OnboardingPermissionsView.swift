@@ -4,6 +4,7 @@
 import SwiftUI
 import VitaCoreContracts
 import VitaCoreDesign
+import VitaCoreHeartbeat
 
 // MARK: - Permission State
 
@@ -23,6 +24,9 @@ struct OnboardingPermissionsView: View {
 
     let onNext: () -> Void
     let onBack: () -> Void
+    /// Sprint 4 O-01: closure injected from VitaCoreApp that calls real
+    /// HealthKitSkill.requestAuthorization(). Nil = use mock toggle.
+    var onRequestHealthKit: (() async -> Bool)? = nil
 
     // -------------------------------------------------------------------------
     // MARK: Environment
@@ -116,25 +120,37 @@ struct OnboardingPermissionsView: View {
     // -------------------------------------------------------------------------
 
     private func requestHealthKit() {
-        // Sprint 2.B: HealthKit authorization is triggered from VitaCoreApp.init
-        // via HealthKitSkill. The onboarding UI shows the toggle flow; the actual
-        // system permission dialog fires on first launch. Tight onboarding ↔ auth
-        // coupling comes in a polish sprint.
-        withAnimation(VCAnimation.cardEntrance) {
-            switch healthKitState {
-            case .idle:    healthKitState = .granted; showHealthKitWarning = false
-            case .granted: healthKitState = .denied;  showHealthKitWarning = true
-            case .denied:  healthKitState = .idle;    showHealthKitWarning = false
+        // Sprint 4 O-01: call real HealthKit authorization if closure provided.
+        if let onRequestHealthKit {
+            Task {
+                let granted = await onRequestHealthKit()
+                await MainActor.run {
+                    withAnimation(VCAnimation.cardEntrance) {
+                        healthKitState = granted ? .granted : .denied
+                        showHealthKitWarning = !granted
+                    }
+                }
+            }
+        } else {
+            // Simulator fallback: mock toggle.
+            withAnimation(VCAnimation.cardEntrance) {
+                switch healthKitState {
+                case .idle:    healthKitState = .granted; showHealthKitWarning = false
+                case .granted: healthKitState = .denied;  showHealthKitWarning = true
+                case .denied:  healthKitState = .idle;    showHealthKitWarning = false
+                }
             }
         }
     }
 
     private func requestNotifications() {
-        withAnimation(VCAnimation.cardEntrance) {
-            switch notificationsState {
-            case .idle:    notificationsState = .granted
-            case .granted: notificationsState = .denied
-            case .denied:  notificationsState = .idle
+        // Sprint 4: real notification permission.
+        Task {
+            let granted = await NotificationPermission.requestAuthorization()
+            await MainActor.run {
+                withAnimation(VCAnimation.cardEntrance) {
+                    notificationsState = granted ? .granted : .denied
+                }
             }
         }
     }
