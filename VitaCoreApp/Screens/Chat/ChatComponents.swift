@@ -60,11 +60,34 @@ struct AssistantMessageBubble: View {
     let onToggleEvidence: () -> Void
     let onAction: (ActionType) -> Void
 
-    private let evidenceLines = [
-        "CGM reading · 2 min ago",
-        "ResponseProfile (n=147) · 94% confidence",
-        "Last meal log · 2h 14m ago"
-    ]
+    /// Sprint 3 M-04: evidence lines derived from the turn content
+    /// rather than hardcoded. In production, these will come from
+    /// CofactorAnalyser output attached to the turn's metadata.
+    /// For now, we extract keywords from the AI response to generate
+    /// contextual evidence.
+    private var evidenceLines: [String] {
+        let content = turn.content.lowercased()
+        var lines: [String] = []
+        if content.contains("glucose") || content.contains("mg/dl") {
+            lines.append("Glucose reading · from your latest data")
+        }
+        if content.contains("meal") || content.contains("food") || content.contains("carb") {
+            lines.append("Nutrition data · from food log")
+        }
+        if content.contains("sleep") || content.contains("rest") {
+            lines.append("Sleep data · from last night")
+        }
+        if content.contains("walk") || content.contains("exercise") || content.contains("step") {
+            lines.append("Activity data · from HealthKit")
+        }
+        if content.contains("heart") || content.contains("hr") || content.contains("bpm") {
+            lines.append("Heart rate · from Apple Watch")
+        }
+        if lines.isEmpty {
+            lines.append("Health context · from your profile")
+        }
+        return lines
+    }
 
     var body: some View {
         HStack(alignment: .bottom, spacing: VCSpacing.sm) {

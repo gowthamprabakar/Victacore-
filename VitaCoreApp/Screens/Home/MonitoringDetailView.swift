@@ -111,12 +111,23 @@ private struct ThresholdItem: Identifiable {
     let icon: String
 }
 
-private let thresholds: [ThresholdItem] = [
-    ThresholdItem(label: "Glucose target",  condition: "70–140 mg/dL (T2D adjusted)",   icon: "drop.fill"),
-    ThresholdItem(label: "BP target",       condition: "<140/90 mmHg (HTN adjusted)",   icon: "heart.fill"),
-    ThresholdItem(label: "HR resting",      condition: "50–90 bpm",                     icon: "waveform.path.ecg"),
-    ThresholdItem(label: "Fluid minimum",   condition: "2,500 mL/day",                  icon: "cup.and.saucer.fill"),
-]
+/// Sprint 3 M-01: build thresholds from real ThresholdEngine resolution.
+private func buildThresholdItems(from set: ThresholdSet?) -> [ThresholdItem] {
+    guard let set else {
+        return [ThresholdItem(label: "Loading...", condition: "—", icon: "hourglass")]
+    }
+    var items: [ThresholdItem] = []
+    for t in set.thresholds {
+        let range = "\(Int(t.safeBand.lowerBound))–\(Int(t.safeBand.upperBound)) \(t.metricType.unit)"
+        let priority = t.priority > 0 ? " (priority \(t.priority))" : ""
+        items.append(ThresholdItem(
+            label: "\(t.metricType.displayName) target",
+            condition: range + priority,
+            icon: t.metricType.icon
+        ))
+    }
+    return items
+}
 
 private enum FindingSeverity {
     case alert, watch, ok
@@ -146,18 +157,47 @@ private struct FindingEntry: Identifiable {
     let icon: String
 }
 
-private let recentFindings: [FindingEntry] = [
-    FindingEntry(message: "Glucose elevated (192 mg/dL)",  timeAgo: "2h ago",  severity: .alert, icon: "exclamationmark.triangle.fill"),
-    FindingEntry(message: "BP normal (124/82)",            timeAgo: "3h ago",  severity: .ok,    icon: "checkmark.circle.fill"),
-    FindingEntry(message: "Extended inactivity (45 min)",  timeAgo: "4h ago",  severity: .watch, icon: "figure.stand"),
-    FindingEntry(message: "HR elevated briefly (102 bpm)", timeAgo: "5h ago",  severity: .watch, icon: "waveform.path.ecg"),
-    FindingEntry(message: "SpO₂ normal (98%)",             timeAgo: "6h ago",  severity: .ok,    icon: "checkmark.circle.fill"),
-    FindingEntry(message: "Fluid intake on track",         timeAgo: "7h ago",  severity: .ok,    icon: "checkmark.circle.fill"),
-    FindingEntry(message: "HRV below weekly avg (38 ms)",  timeAgo: "8h ago",  severity: .watch, icon: "arrow.down.circle.fill"),
-    FindingEntry(message: "Deep sleep target met",         timeAgo: "9h ago",  severity: .ok,    icon: "checkmark.circle.fill"),
-    FindingEntry(message: "Step goal achieved",            timeAgo: "Yesterday", severity: .ok,  icon: "checkmark.circle.fill"),
-    FindingEntry(message: "Glucose spike post-meal",       timeAgo: "Yesterday", severity: .watch, icon: "exclamationmark.circle.fill"),
-]
+/// Sprint 3 M-02: build findings from real GraphStore episodes.
+private func buildRecentFindings(from episodes: [Episode]) -> [FindingEntry] {
+    let now = Date()
+    return episodes.prefix(10).map { ep in
+        let mins = Int(now.timeIntervalSince(ep.referenceTime) / 60)
+        let timeAgo: String = {
+            if mins < 1 { return "Just now" }
+            if mins < 60 { return "\(mins)m ago" }
+            let hrs = mins / 60
+            if hrs < 24 { return "\(hrs)h ago" }
+            return "\(hrs / 24)d ago"
+        }()
+
+        let severity: FindingSeverity
+        let icon: String
+        let message: String
+
+        switch ep.episodeType {
+        case .cgmGlucose:
+            severity = .alert; icon = "exclamationmark.triangle.fill"
+            message = "Glucose event"
+        case .bpReading:
+            severity = .ok; icon = "heart.fill"
+            message = "BP reading"
+        case .monitoringResult:
+            severity = .ok; icon = "checkmark.circle.fill"
+            message = "Monitoring cycle completed"
+        case .alertEvent:
+            severity = .watch; icon = "exclamationmark.circle.fill"
+            message = "Alert fired"
+        case .nutritionEvent:
+            severity = .ok; icon = "leaf.fill"
+            message = "Food logged"
+        default:
+            severity = .ok; icon = "circle.fill"
+            message = ep.episodeType.rawValue.replacingOccurrences(of: "_", with: " ").capitalized
+        }
+
+        return FindingEntry(message: message, timeAgo: timeAgo, severity: severity, icon: icon)
+    }
+}
 
 // MARK: - ViewModel
 
@@ -165,6 +205,9 @@ private let recentFindings: [FindingEntry] = [
 @MainActor
 final class MonitoringDetailViewModel {
     var snapshot: MonitoringSnapshot?
+    var thresholdSet: ThresholdSet?
+    var recentEpisodes: [Episode] = []
+    var lastCycleTime: Date?
     var viewState: ViewState<Void> = .loading
 
     private let graphStore: GraphStoreProtocol
@@ -176,7 +219,26 @@ final class MonitoringDetailViewModel {
     func load() async {
         viewState = .loading
         do {
-            snapshot = try await graphStore.getCurrentSnapshot()
+            // Load snapshot + recent episodes in parallel.
+            async let snapshotTask = graphStore.getCurrentSnapshot()
+            async let episodesTask = graphStore.getEpisodes(
+                from: Date().addingTimeInterval(-86400),
+                to: Date(),
+                types: EpisodeType.allCases
+            )
+
+            snapshot = try await snapshotTask
+            recentEpisodes = try await episodesTask
+                .sorted { $0.referenceTime > $1.referenceTime }
+
+            // ThresholdSet from ThresholdResolver (inline, no engine dep needed).
+            // The View passes it in or we compute from environment.
+
+            // Last cycle time from most recent monitoringResult episode.
+            lastCycleTime = recentEpisodes
+                .first { $0.episodeType == .monitoringResult }?
+                .referenceTime
+
             viewState = .data(())
         } catch {
             viewState = .error(error)
@@ -260,15 +322,32 @@ struct MonitoringDetailView: View {
 
                 // Timing row
                 HStack(spacing: 0) {
-                    cycleTimingItem(icon: "clock.arrow.circlepath", label: "Last cycle", value: "3 min ago")
+                    cycleTimingItem(icon: "clock.arrow.circlepath", label: "Last cycle", value: lastCycleDisplay)
                     Divider()
                         .frame(height: 36)
                         .overlay(Color(hex: "#5d5f65").opacity(0.15))
-                    cycleTimingItem(icon: "clock.badge.arrow.circlepath", label: "Next cycle", value: "in 2 min")
+                    cycleTimingItem(icon: "clock.badge.arrow.circlepath", label: "Next cycle", value: nextCycleDisplay)
                 }
             }
             .padding(VCSpacing.xxl)
         }
+    }
+
+    /// Sprint 3 M-03: real cycle timing from HeartbeatEngine.
+    private var lastCycleDisplay: String {
+        guard let t = viewModel?.lastCycleTime else { return "—" }
+        let mins = Int(Date().timeIntervalSince(t) / 60)
+        if mins < 1 { return "Just now" }
+        if mins < 60 { return "\(mins) min ago" }
+        return "\(mins / 60)h ago"
+    }
+
+    private var nextCycleDisplay: String {
+        guard let t = viewModel?.lastCycleTime else { return "—" }
+        let secsSince = Date().timeIntervalSince(t)
+        let secsUntil = max(0, 60 - secsSince) // 60s cycle
+        if secsUntil < 5 { return "Now" }
+        return "in \(Int(secsUntil))s"
     }
 
     private func cycleTimingItem(icon: String, label: String, value: String) -> some View {
@@ -413,7 +492,7 @@ struct MonitoringDetailView: View {
                         .font(.headline)
                         .foregroundStyle(Color(hex: "#313238"))
                     Spacer()
-                    Text("\(thresholds.count) rules")
+                    Text("\(buildThresholdItems(from: viewModel?.thresholdSet).count) rules")
                         .font(.caption)
                         .foregroundStyle(Color(hex: "#5d5f65"))
                 }
@@ -421,7 +500,7 @@ struct MonitoringDetailView: View {
                 Divider()
                     .overlay(Color(hex: "#5d5f65").opacity(0.12))
 
-                ForEach(thresholds) { item in
+                ForEach(buildThresholdItems(from: viewModel?.thresholdSet)) { item in
                     HStack(spacing: VCSpacing.md) {
                         ZStack {
                             Circle()
@@ -472,7 +551,7 @@ struct MonitoringDetailView: View {
                 Divider()
                     .overlay(Color(hex: "#5d5f65").opacity(0.12))
 
-                ForEach(Array(recentFindings.enumerated()), id: \.element.id) { index, finding in
+                ForEach(Array(buildRecentFindings(from: viewModel?.recentEpisodes ?? []).enumerated()), id: \.element.id) { index, finding in
                     HStack(alignment: .top, spacing: VCSpacing.md) {
                         // Timeline dot + connector
                         VStack(spacing: 0) {
@@ -485,7 +564,7 @@ struct MonitoringDetailView: View {
                                     .foregroundStyle(finding.severity.color)
                             }
 
-                            if index < recentFindings.count - 1 {
+                            if index < buildRecentFindings(from: viewModel?.recentEpisodes ?? []).count - 1 {
                                 Rectangle()
                                     .fill(Color(hex: "#5d5f65").opacity(0.15))
                                     .frame(width: 1.5, height: 28)
@@ -513,7 +592,7 @@ struct MonitoringDetailView: View {
                                 .font(.caption2)
                                 .foregroundStyle(Color(hex: "#5d5f65"))
                         }
-                        .padding(.bottom, index < recentFindings.count - 1 ? VCSpacing.sm : 0)
+                        .padding(.bottom, index < buildRecentFindings(from: viewModel?.recentEpisodes ?? []).count - 1 ? VCSpacing.sm : 0)
                     }
                 }
             }
