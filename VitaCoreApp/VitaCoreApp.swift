@@ -32,6 +32,7 @@ struct VitaCoreApp: App {
     private let inferenceProvider: InferenceProviderProtocol
     private let skillBus: SkillBusProtocol
     private let heartbeatEngine: HeartbeatEngine
+    private let alertRouter: AlertRouterProtocol
     #if canImport(HealthKit)
     private var healthKitSkill: HealthKitSkill?
     #endif
@@ -111,6 +112,20 @@ struct VitaCoreApp: App {
             cycleInterval: 60
         )
         self.heartbeatEngine = heartbeat
+
+        // Sprint 2 N-04: Real AlertRouter — LAST mock replaced.
+        // ALL 5 frozen protocols now have real implementations.
+        let router = VitaCoreAlertRouter(graphStore: graph)
+        self.alertRouter = router
+        // Sprint 2 N-02: set quiet hours from persona preferences.
+        Task {
+            if let ctx = try? await persona.getPersonaContext() {
+                router.quietHoursStart = ctx.preferences.notificationQuietHoursStart
+                router.quietHoursEnd = ctx.preferences.notificationQuietHoursEnd
+            }
+        }
+        print("✅ VitaCoreAlertRouter: real alert routing + notification dispatch")
+
         // Wire HeartbeatEngine → MiroFish: threshold crossing triggers
         // multi-cofactor RCA + prescription card generation.
         let miroFish = MiroFishEngine()
@@ -145,10 +160,28 @@ struct VitaCoreApp: App {
         // Now that all stored properties are set, it's safe to call instance methods.
         configureAppearance()
 
-        // Sprint 3.D: route HeartbeatEngine alerts to AlertPresentationManager
-        // so CriticalAlertView / AlertSheetView / WatchBannerView actually render.
+        // Sprint 2: HeartbeatEngine alerts → AlertRouter (persistence +
+        // local notifications) + AlertPresentationManager (in-app UI).
         let alertMgr = self.alertManager
+        let alertRtr = router
         heartbeat.onAlert = { @Sendable alert in
+            // 1. Route through AlertRouter for persistence + push notification.
+            let alertEvent = AlertEvent(
+                urgency: AlertBand(rawValue: alert.level.rawValue) ?? .watch,
+                metricType: alert.metricType,
+                value: alert.value,
+                trendDirection: .stable,
+                explanation: alert.message,
+                evidence: ["\(Int(alert.value)) \(alert.unit)"]
+            )
+            let payload = AlertDeliveryPayload(
+                event: alertEvent,
+                autoDismiss: alert.level == .watch,
+                autoDismissDelay: 5
+            )
+            Task { await alertRtr.route(payload) }
+
+            // 2. Route to in-app UI presentation.
             Task { @MainActor in
                 switch alert.level {
                 case .critical:
@@ -176,6 +209,12 @@ struct VitaCoreApp: App {
                     ))
                 }
             }
+        }
+
+        // Sprint 2 N-03: request notification permission on first launch.
+        Task.detached {
+            let granted = await NotificationPermission.requestAuthorization()
+            print(granted ? "✅ Notifications: authorised" : "⚠️ Notifications: denied")
         }
 
         // Sprint 2.B: HealthKit authorization + backfill on first launch.
@@ -244,7 +283,7 @@ struct VitaCoreApp: App {
                 .environment(\.personaEngine, personaEngine)  // ← REAL (VitaCorePersonaEngine)
                 .environment(\.inferenceProvider, inferenceProvider) // ← REAL (VitaCoreInferenceProvider)
                 .environment(\.skillBus, skillBus)               // ← REAL (VitaCoreSkillBus)
-                .environment(\.alertRouter, dataProvider.alertRouter) // mock until Phase 3
+                .environment(\.alertRouter, alertRouter)          // ← REAL (VitaCoreAlertRouter)
         }
     }
 
