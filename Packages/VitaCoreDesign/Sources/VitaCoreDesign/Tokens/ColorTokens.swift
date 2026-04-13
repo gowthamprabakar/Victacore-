@@ -144,4 +144,70 @@ public enum VCColors {
     public static let surfaceElevated = Color(hex: "FCFBFF")
     /// Surface for contextual floating overlays.
     public static let surfaceFloating = Color(hex: "FFFFFF")
+
+    // =========================================================================
+    // MARK: Dark Mode Palette (Sprint 1 D-01)
+    // =========================================================================
+
+    /// Deep space background — near-black with violet undertone.
+    public static let backgroundDark     = Color(hex: "0F0E14")
+    public static let surfaceLowestDark  = Color(hex: "1A1922")
+    public static let surfaceLowDark     = Color(hex: "22212B")
+    public static let surfaceDark        = Color(hex: "2B2A35")
+    public static let surfaceHighDark    = Color(hex: "35343F")
+    public static let surfaceHighestDark = Color(hex: "3F3E49")
+    public static let surfaceDimDark     = Color(hex: "17161F")
+
+    /// Light text on dark surfaces — same contrast ratios as light mode.
+    public static let onSurfaceDark        = Color(hex: "E8E7EE")
+    public static let onSurfaceVariantDark = Color(hex: "B0B1B8")
+    public static let outlineDark          = Color(hex: "8A8B92")
+    public static let outlineVariantDark   = Color(hex: "5A5B62")
+
+    /// Glass on dark — slightly lighter than surface with higher opacity.
+    public static let glassSurfaceDark  = Color.white.opacity(0.08)
+    public static let glassEnhancedDark = Color.white.opacity(0.12)
+    public static let glassBorderDark   = Color.white.opacity(0.15)
+
+    public static let surfaceElevatedDark = Color(hex: "252430")
+    public static let surfaceFloatingDark = Color(hex: "2E2D3A")
+}
+
+// MARK: - Adaptive Color Accessors
+
+public extension VCColors {
+
+    /// Returns the correct color for the current color scheme.
+    /// Usage: `VCColors.adaptive(.background, scheme: colorScheme)`
+    static func adaptive(_ token: VCColorToken, scheme: ColorScheme) -> Color {
+        switch (token, scheme) {
+        case (.background, .dark):       return backgroundDark
+        case (.background, _):           return background
+        case (.surface, .dark):          return surfaceDark
+        case (.surface, _):              return surface
+        case (.surfaceLowest, .dark):    return surfaceLowestDark
+        case (.surfaceLowest, _):        return surfaceLowest
+        case (.surfaceLow, .dark):       return surfaceLowDark
+        case (.surfaceLow, _):           return surfaceLow
+        case (.surfaceHigh, .dark):      return surfaceHighDark
+        case (.surfaceHigh, _):          return surfaceHigh
+        case (.onSurface, .dark):        return onSurfaceDark
+        case (.onSurface, _):            return onSurface
+        case (.onSurfaceVariant, .dark): return onSurfaceVariantDark
+        case (.onSurfaceVariant, _):     return onSurfaceVariant
+        case (.outline, .dark):          return outlineDark
+        case (.outline, _):              return outline
+        case (.glassSurface, .dark):     return glassSurfaceDark
+        case (.glassSurface, _):         return glassSurface
+        case (.glassBorder, .dark):      return glassBorderDark
+        case (.glassBorder, _):          return glassBorder
+        }
+    }
+}
+
+/// Token identifiers for adaptive color lookup.
+public enum VCColorToken: Sendable {
+    case background, surface, surfaceLowest, surfaceLow, surfaceHigh
+    case onSurface, onSurfaceVariant, outline
+    case glassSurface, glassBorder
 }
