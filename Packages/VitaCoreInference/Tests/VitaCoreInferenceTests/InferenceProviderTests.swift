@@ -226,15 +226,27 @@ func testAnalyzeFoodSouthAsian() async throws {
     #expect(result.totalCarbsG > 50) // dal + roti = significant carbs
 }
 
-@Test("analyzeFood falls back gracefully for unknown foods")
-func testAnalyzeFoodUnknown() async throws {
+@Test("analyzeFood finds quinoa in real DB (was unknown in 15-item lookup)")
+func testAnalyzeFoodQuinoa() async throws {
     let runtime = Gemma4Runtime(quantisation: .gemma3n_q4)
     let store = try ConversationStore.inMemory()
     let provider = VitaCoreInferenceProvider(runtime: runtime, conversationStore: store)
 
+    // "quinoa avocado bowl" — the real DB has quinoa (F-01 upgrade).
     let result = try await provider.analyzeFood("quinoa avocado bowl")
     #expect(result.recognisedItems.count >= 1)
-    #expect(result.confidence < 0.5) // low confidence for unknown
+    #expect(result.confidence >= 0.5) // quinoa is in the DB now
+}
+
+@Test("analyzeFood falls back for truly unknown food")
+func testAnalyzeFoodTrulyUnknown() async throws {
+    let runtime = Gemma4Runtime(quantisation: .gemma3n_q4)
+    let store = try ConversationStore.inMemory()
+    let provider = VitaCoreInferenceProvider(runtime: runtime, conversationStore: store)
+
+    let result = try await provider.analyzeFood("xyzzy plugh")
+    #expect(result.recognisedItems.count == 1) // generic fallback
+    #expect(result.confidence <= 0.3)
 }
 
 // MARK: - Model Status

@@ -258,75 +258,60 @@ public final class VitaCoreInferenceProvider: InferenceProviderProtocol, @unchec
     // -------------------------------------------------------------------------
 
     public func analyzeFood(_ description: String) async throws -> FoodAnalysisResult {
-        // MVP: text-based macro estimation. No vision tower yet.
-        // Simple heuristic lookup for common foods.
-        let lower = description.lowercased()
+        // Sprint 1 F-01: real food database search across 100+ curated items
+        // (USDA FoodData Central + South Asian + international foods).
+        // Splits the user's input into words and searches for each,
+        // aggregating all matching items into one FoodAnalysisResult.
 
-        var items: [FoodEntry] = []
-        var totalCal: Double = 0, totalCarbs: Double = 0
-        var totalProtein: Double = 0, totalFat: Double = 0
+        let foodDB = try FoodDatabase.shared()
 
-        // Basic food database (expandable)
-        let foodDB: [(pattern: String, name: String, cal: Double, carbs: Double, protein: Double, fat: Double)] = [
-            ("rice", "Rice (1 cup)", 206, 45, 4.3, 0.4),
-            ("chicken", "Chicken breast (100g)", 165, 0, 31, 3.6),
-            ("salad", "Mixed salad", 120, 12, 3, 7),
-            ("bread", "Bread (2 slices)", 160, 30, 5, 2),
-            ("egg", "Eggs (2)", 156, 1.1, 13, 10.6),
-            ("banana", "Banana", 105, 27, 1.3, 0.4),
-            ("apple", "Apple", 95, 25, 0.5, 0.3),
-            ("milk", "Milk (1 cup)", 149, 12, 8, 8),
-            ("pasta", "Pasta (1 cup)", 220, 43, 8, 1.3),
-            ("fish", "Fish fillet (100g)", 136, 0, 26, 3),
-            ("dal", "Dal (1 cup)", 230, 40, 18, 1),
-            ("roti", "Roti (2)", 200, 36, 6, 4),
-            ("idli", "Idli (3)", 195, 39, 5.4, 0.6),
-            ("dosa", "Dosa (1)", 168, 28, 4, 4.5),
-            ("biryani", "Biryani (1 plate)", 450, 55, 20, 16)
-        ]
+        // Split description into searchable terms.
+        let terms = description
+            .lowercased()
+            .components(separatedBy: CharacterSet.alphanumerics.inverted)
+            .filter { $0.count >= 3 }
 
-        for food in foodDB {
-            if lower.contains(food.pattern) {
-                items.append(FoodEntry(
-                    name: food.name,
-                    portionGrams: nil,
-                    calories: food.cal,
-                    carbsG: food.carbs,
-                    proteinG: food.protein,
-                    fatG: food.fat,
-                    sourceSkillId: "skill.foodTextAnalysis",
-                    timestamp: Date()
-                ))
-                totalCal += food.cal
-                totalCarbs += food.carbs
-                totalProtein += food.protein
-                totalFat += food.fat
+        var matchedItems: [FoodItem] = []
+        var seenIds: Set<Int> = []
+
+        for term in terms {
+            let results = try await foodDB.search(term, limit: 3)
+            for item in results where !seenIds.contains(item.fdcId) {
+                matchedItems.append(item)
+                seenIds.insert(item.fdcId)
             }
         }
 
-        // If nothing matched, estimate generically
-        if items.isEmpty {
-            let generic = FoodEntry(
-                name: description,
-                portionGrams: 200,
-                calories: 300,
-                carbsG: 40,
-                proteinG: 15,
-                fatG: 10,
-                sourceSkillId: "skill.foodTextAnalysis",
-                timestamp: Date()
-            )
-            items.append(generic)
-            totalCal = 300; totalCarbs = 40; totalProtein = 15; totalFat = 10
+        // If individual terms didn't match, try the full string.
+        if matchedItems.isEmpty {
+            let fullResults = try await foodDB.search(description, limit: 5)
+            matchedItems = fullResults
         }
 
+        // Build result from matched items.
+        if !matchedItems.isEmpty {
+            return foodDB.buildAnalysisResult(items: matchedItems)
+        }
+
+        // Fallback: generic estimate for completely unknown food.
         return FoodAnalysisResult(
-            recognisedItems: items,
-            totalCalories: totalCal,
-            totalCarbsG: totalCarbs,
-            totalProteinG: totalProtein,
-            totalFatG: totalFat,
-            confidence: items.count == 1 && items[0].name == description ? 0.3 : 0.7,
+            recognisedItems: [
+                FoodEntry(
+                    name: description,
+                    portionGrams: 200,
+                    calories: 300,
+                    carbsG: 40,
+                    proteinG: 15,
+                    fatG: 10,
+                    sourceSkillId: "skill.foodTextAnalysis",
+                    timestamp: Date()
+                )
+            ],
+            totalCalories: 300,
+            totalCarbsG: 40,
+            totalProteinG: 15,
+            totalFatG: 10,
+            confidence: 0.2,
             analysedAt: Date()
         )
     }
