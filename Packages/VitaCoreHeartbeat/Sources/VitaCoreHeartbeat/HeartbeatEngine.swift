@@ -85,7 +85,7 @@ public struct HeartbeatAlert: Sendable, Hashable, Identifiable {
 
 public final class HeartbeatEngine: @unchecked Sendable {
 
-    private let graphStore: GraphStoreProtocol
+    public let graphStore: GraphStoreProtocol
     private let thresholdEngine: VitaCoreThresholdEngine
     private let cycleInterval: TimeInterval
 

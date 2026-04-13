@@ -40,6 +40,8 @@ packages:
     path: Packages/VitaCoreSkillBus
   VitaCoreHeartbeat:
     path: Packages/VitaCoreHeartbeat
+  VitaCoreMiroFish:
+    path: Packages/VitaCoreMiroFish
 
 targets:
   VitaCore:
@@ -62,6 +64,7 @@ targets:
       - package: VitaCoreThreshold
       - package: VitaCoreSkillBus
       - package: VitaCoreHeartbeat
+      - package: VitaCoreMiroFish
     settings:
       base:
         INFOPLIST_FILE: ""

@@ -10,6 +10,7 @@ import VitaCoreThreshold
 import VitaCoreInference
 import VitaCoreSkillBus
 import VitaCoreHeartbeat
+import VitaCoreMiroFish
 #if DEMO_MODE
 import VitaCoreSynthetic
 #endif
@@ -113,11 +114,38 @@ struct VitaCoreApp: App {
         )
         heartbeat.onAlert = { alert in
             print("🚨 HeartbeatAlert: \(alert.level.rawValue) — \(alert.message)")
-            // TODO: Wire to AlertPresentationManager in Sprint 3.C
+        }
+        // Wire HeartbeatEngine → MiroFish: threshold crossing triggers
+        // multi-cofactor RCA + prescription card generation.
+        let miroFish = MiroFishEngine()
+        heartbeat.onInferenceRequest = { [weak heartbeat] request in
+            guard let graphRef = heartbeat?.graphStore else { return }
+            Task {
+                do {
+                    let trigger = Reading(
+                        metricType: .glucose,
+                        value: request.snapshot.glucose?.value ?? 0,
+                        unit: "mg/dL",
+                        timestamp: Date(),
+                        sourceSkillId: "engine.heartbeat",
+                        confidence: 1.0
+                    )
+                    let (analysis, card) = try await miroFish.analyseAndPrescribe(
+                        trigger: trigger,
+                        graphStore: graphRef,
+                        persona: request.persona,
+                        thresholdSet: request.thresholdSet
+                    )
+                    print("🧠 MiroFish: \(analysis.cofactors.count) cofactors → \(card.prescriptions.count) prescriptions")
+                    print("   Top: \(card.prescriptions.first?.actionVerb ?? "none") — \(card.prescriptions.first?.actionDetail ?? "")")
+                } catch {
+                    print("⚠️ MiroFish analysis failed: \(error)")
+                }
+            }
         }
         self.heartbeatEngine = heartbeat
         heartbeat.start()
-        print("✅ HeartbeatEngine: monitoring started (60s cycle)")
+        print("✅ HeartbeatEngine + MiroFish: monitoring + RCA pipeline active")
 
         // Now that all stored properties are set, it's safe to call instance methods.
         configureAppearance()
