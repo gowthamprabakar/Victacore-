@@ -50,17 +50,20 @@ final class ChatViewModel {
     private let inferenceProvider: InferenceProviderProtocol
     private let graphStore: GraphStoreProtocol
     private let personaEngine: PersonaEngineProtocol
+    private let skillBus: SkillBusProtocol
 
     // MARK: - Init
 
     init(
         inferenceProvider: InferenceProviderProtocol,
         graphStore: GraphStoreProtocol,
-        personaEngine: PersonaEngineProtocol
+        personaEngine: PersonaEngineProtocol,
+        skillBus: SkillBusProtocol
     ) {
         self.inferenceProvider = inferenceProvider
         self.graphStore = graphStore
         self.personaEngine = personaEngine
+        self.skillBus = skillBus
     }
 
     // MARK: - Load
@@ -105,14 +108,43 @@ final class ChatViewModel {
         let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty, !isStreaming else { return }
 
+        let intent = classifyIntent(text)
         let userTurn = ConversationTurn(
             role: .user,
             content: text,
-            intent: classifyIntent(text),
+            intent: intent,
             actions: []
         )
         turns.append(userTurn)
         inputText = ""
+
+        // Sprint 1 F-08: chat-based food logging. When the user describes
+        // food they ate ("I had dal roti", "lunch was chicken rice"),
+        // auto-analyze + log it to GraphStore via SkillBus, then include
+        // the analysis in the AI response context.
+        if intent == .foodQuery || intent == .logRequest {
+            let foodPatterns = ["had", "ate", "eaten", "lunch", "dinner", "breakfast", "snack", "drank", "cooked"]
+            let lower = text.lowercased()
+            if foodPatterns.contains(where: { lower.contains($0) }) {
+                do {
+                    let foodResult = try await inferenceProvider.analyzeFood(text)
+                    if !foodResult.recognisedItems.isEmpty && foodResult.confidence >= 0.5 {
+                        let logResult = await skillBus.logFoodEntry(result: foodResult, timestamp: Date())
+                        if logResult.success {
+                            let items = foodResult.recognisedItems.map(\.name).joined(separator: ", ")
+                            let systemNote = ConversationTurn(
+                                role: .system,
+                                content: "Logged: \(items) (\(Int(foodResult.totalCalories)) kcal, \(Int(foodResult.totalCarbsG))g carbs)",
+                                intent: .logRequest
+                            )
+                            turns.append(systemNote)
+                        }
+                    }
+                } catch {
+                    // Food analysis failed — continue with normal chat response.
+                }
+            }
+        }
 
         isStreaming = true
         streamingContent = ""

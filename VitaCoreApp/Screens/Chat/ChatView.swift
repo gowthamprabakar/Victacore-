@@ -17,6 +17,7 @@ struct ChatView: View {
     @Environment(\.inferenceProvider) var inferenceProvider
     @Environment(\.graphStore) var graphStore
     @Environment(\.personaEngine) var personaEngine
+    @Environment(\.skillBus) var skillBus
     @Environment(\.dismiss) var dismiss
     @Environment(NavigationRouter.self) var navRouter
 
@@ -62,7 +63,8 @@ struct ChatView: View {
                 viewModel = ChatViewModel(
                     inferenceProvider: inferenceProvider,
                     graphStore: graphStore,
-                    personaEngine: personaEngine
+                    personaEngine: personaEngine,
+                    skillBus: skillBus
                 )
             }
             await viewModel?.load()

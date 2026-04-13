@@ -234,9 +234,14 @@ final class FoodFlowViewModel {
     func confirmFood() async {
         guard let result = analysisResult else { return }
 
-        // TODO: Write entries via SkillBus when skill.food.log is implemented.
-        // For each item in result.recognisedItems:
-        //   await skillBus.emit(LogFoodIntent(entry: item, portionOverride: editablePortions[item.id]))
+        // Sprint 1 F-04: write confirmed food to GraphStore via SkillBus.
+        let logResult = await skillBus.logFoodEntry(
+            result: result,
+            timestamp: Date()
+        )
+        if !logResult.success {
+            print("⚠️ FoodFlow: failed to log food — \(logResult.message ?? "unknown error")")
+        }
 
         withAnimation(.easeInOut(duration: 0.4)) {
             currentStage = .confirmation(result)
