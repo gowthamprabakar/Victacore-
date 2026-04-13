@@ -4,6 +4,7 @@
 // Architecture: 5-layer OpenClaw | Sprint Phase 1
 
 import SwiftUI
+import UserNotifications
 import VitaCoreDesign
 import VitaCoreContracts
 import VitaCoreNavigation
@@ -813,13 +814,30 @@ struct HomeDashboardView: View {
                         title: "\(prescription.actionVerb) now",
                         style: .primary
                     ) {
-                        // TODO: route to log entry
+                        // Route to the appropriate log entry based on action verb.
+                        switch prescription.actionVerb.lowercased() {
+                        case "walk", "move", "exercise":
+                            tabRouter.selectedTab = .log
+                        case "eat", "refuel":
+                            tabRouter.selectedTab = .log
+                        case "drink", "hydrate":
+                            tabRouter.selectedTab = .log
+                        default:
+                            tabRouter.selectedTab = .chat
+                        }
                     }
                     intelligenceActionButton(title: "Tell me more", style: .secondary) {
                         tabRouter.selectedTab = .chat
                     }
                     intelligenceActionButton(title: "Remind me", style: .secondary) {
-                        // TODO: schedule reminder via UNNotificationRequest
+                        // Schedule a reminder notification in 15 minutes.
+                        let content = UNMutableNotificationContent()
+                        content.title = "VitaCore Reminder"
+                        content.body = "\(prescription.actionVerb): \(prescription.actionDetail)"
+                        content.sound = .default
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 900, repeats: false)
+                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                        Task { try? await UNUserNotificationCenter.current().add(request) }
                     }
                 }
             }
@@ -958,13 +976,13 @@ struct HomeDashboardView: View {
     private var quickLogStrip: some View {
         GlassCard(style: .standard) {
             HStack(spacing: 0) {
-                // TODO: wire each button to the appropriate SheetDestination once log sheet routes are defined
-                quickLogButton(icon: "fork.knife",      label: "Food",    color: VCColors.watch)       { }
-                quickLogButton(icon: "drop.fill",        label: "Fluid",   color: VCColors.tertiary)    { }
-                quickLogButton(icon: "syringe.fill",     label: "Glucose", color: VCColors.primary)     { }
-                quickLogButton(icon: "heart.fill",       label: "BP",      color: VCColors.secondary)   { }
-                quickLogButton(icon: "scalemass.fill",   label: "Weight",  color: VCColors.primary)     { }
-                quickLogButton(icon: "note.text",        label: "Note",    color: VCColors.outline)     { }
+                // Sprint 6: quick-log buttons route to Log tab.
+                quickLogButton(icon: "fork.knife",      label: "Food",    color: VCColors.watch)       { tabRouter.selectedTab = .log }
+                quickLogButton(icon: "drop.fill",        label: "Fluid",   color: VCColors.tertiary)    { tabRouter.selectedTab = .log }
+                quickLogButton(icon: "syringe.fill",     label: "Glucose", color: VCColors.primary)     { tabRouter.selectedTab = .log }
+                quickLogButton(icon: "heart.fill",       label: "BP",      color: VCColors.secondary)   { tabRouter.selectedTab = .log }
+                quickLogButton(icon: "scalemass.fill",   label: "Weight",  color: VCColors.primary)     { tabRouter.selectedTab = .log }
+                quickLogButton(icon: "note.text",        label: "Note",    color: VCColors.outline)     { tabRouter.selectedTab = .log }
             }
             .padding(.vertical, VCSpacing.sm)
         }
