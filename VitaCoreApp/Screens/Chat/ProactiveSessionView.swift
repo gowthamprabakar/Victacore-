@@ -6,6 +6,7 @@ import SwiftUI
 import VitaCoreContracts
 import VitaCoreDesign
 import VitaCoreNavigation
+import VitaCoreThreshold
 
 // MARK: - ProactiveSessionView
 
@@ -16,6 +17,11 @@ struct ProactiveSessionView: View {
     let alertTimestamp: Date
     let triggerMessage: String       // Initial assistant message
     let onDismiss: () -> Void
+
+    // MARK: Environment (Sprint 3.C — real inference)
+    @Environment(\.inferenceProvider) private var inferenceProvider
+    @Environment(\.personaEngine) private var personaEngine
+    @Environment(\.graphStore) private var graphStore
 
     // MARK: State
     @State private var userInput: String = ""
@@ -416,14 +422,34 @@ struct ProactiveSessionView: View {
         )
         turns.append(userTurn)
 
-        // Simulate streaming response (replaced by real InferenceProvider in production)
+        // Sprint 3.C: real inference via InferenceProvider with full health context.
         isStreaming = true
         Task {
-            try? await Task.sleep(nanoseconds: 1_800_000_000)
+            // Build real InferenceRequest with persona + snapshot + thresholds.
+            let persona = (try? await personaEngine.getPersonaContext()) ?? PersonaContext(userId: UUID())
+            let snapshot = (try? await graphStore.getCurrentSnapshot()) ?? MonitoringSnapshot(dataQuality: .insufficient)
+            let thresholds = ThresholdResolver().resolve(from: persona)
+
+            let request = InferenceRequest(
+                persona: persona,
+                snapshot: snapshot,
+                thresholdSet: thresholds,
+                conversationalOverride: "Alert context: \(alertTitle). User asks: \(text)",
+                temperatureHint: 0.5
+            )
+
+            let stream = inferenceProvider.sendMessage(text, request: request)
+            var fullResponse = ""
+            for await token in stream {
+                fullResponse += token
+            }
+
             let assistantTurn = ConversationTurn(
                 id: UUID(),
                 role: .assistant,
-                content: "I'm monitoring the situation. Your next glucose check is in 15 minutes. Stay hydrated and avoid high-glycaemic foods.",
+                content: fullResponse.isEmpty
+                    ? "I'm monitoring the situation. Stay hydrated and follow your protocol."
+                    : fullResponse,
                 intent: .lifestyleAdvice,
                 actions: [.remindLater],
                 timestamp: Date()

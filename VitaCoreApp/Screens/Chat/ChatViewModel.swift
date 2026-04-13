@@ -7,6 +7,7 @@ import SwiftUI
 import Observation
 import VitaCoreContracts
 import VitaCoreDesign
+import VitaCoreThreshold
 
 // MARK: - ChatViewModel
 
@@ -117,7 +118,7 @@ final class ChatViewModel {
         streamingContent = ""
         streamingRole = .assistant
 
-        let request = makeInferenceRequest()
+        let request = await makeInferenceRequest()
         let stream = inferenceProvider.sendMessage(text, request: request)
         var fullResponse = ""
 
@@ -238,19 +239,49 @@ final class ChatViewModel {
         return Array(actions.prefix(3))
     }
 
-    private func makeInferenceRequest() -> InferenceRequest {
-        // Build a minimal InferenceRequest for the conversational layer.
-        // PersonaContext and MonitoringSnapshot default to empty/nil values.
-        let persona = PersonaContext(userId: UUID())
-        let snapshot = MonitoringSnapshot()
-        let thresholds = ThresholdSet()
+    private func makeInferenceRequest() async -> InferenceRequest {
+        // Sprint 3.C: fetch REAL health context so the LLM system prompt
+        // includes the user's actual conditions, goals, meds, thresholds,
+        // and current readings — not empty stubs.
+        let persona: PersonaContext
+        let snapshot: MonitoringSnapshot
+        let thresholds: ThresholdSet
+
+        do {
+            persona = try await personaEngine.getPersonaContext()
+        } catch {
+            persona = PersonaContext(userId: UUID())
+        }
+
+        do {
+            snapshot = try await graphStore.getCurrentSnapshot()
+        } catch {
+            snapshot = MonitoringSnapshot(dataQuality: .insufficient)
+        }
+
+        // ThresholdSet: resolve from persona conditions using the
+        // deterministic ThresholdResolver (no async needed).
+        let resolver = ThresholdResolver()
+        thresholds = resolver.resolve(from: persona)
+
+        // Fetch recent episodes for context (last 4 hours).
+        let recentEpisodes: [Episode]
+        do {
+            recentEpisodes = try await graphStore.getEpisodes(
+                from: Date().addingTimeInterval(-14400),
+                to: Date(),
+                types: EpisodeType.allCases
+            )
+        } catch {
+            recentEpisodes = []
+        }
 
         return InferenceRequest(
             persona: persona,
             snapshot: snapshot,
             thresholdSet: thresholds,
-            recentEpisodes: [],
-            conversationalOverride: inputText.isEmpty ? nil : inputText,
+            recentEpisodes: Array(recentEpisodes.prefix(10)),
+            conversationalOverride: nil,
             temperatureHint: 0.4
         )
     }

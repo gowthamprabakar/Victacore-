@@ -41,17 +41,68 @@ private struct MetricCard: Identifiable {
     let icon: String
 }
 
-private let metricGrid: [MetricCard] = [
-    MetricCard(name: "Glucose",  value: "108 mg/dL", freshness: .fresh,   timestamp: "2 min ago",  icon: "drop.fill"),
-    MetricCard(name: "BP",       value: "124/82",    freshness: .stale,   timestamp: "6 h ago",    icon: "heart.fill"),
-    MetricCard(name: "HR",       value: "68 bpm",    freshness: .fresh,   timestamp: "1 min ago",  icon: "waveform.path.ecg"),
-    MetricCard(name: "HRV",      value: "42 ms",     freshness: .stale,   timestamp: "8 h ago",    icon: "waveform"),
-    MetricCard(name: "SpO₂",     value: "98%",       freshness: .fresh,   timestamp: "3 min ago",  icon: "lungs.fill"),
-    MetricCard(name: "Steps",    value: "7,520",     freshness: .fresh,   timestamp: "Now",        icon: "figure.walk"),
-    MetricCard(name: "Sleep",    value: "7h 12m",    freshness: .fresh,   timestamp: "Today",      icon: "moon.stars.fill"),
-    MetricCard(name: "Fluid",    value: "1,200 mL",  freshness: .fresh,   timestamp: "18 min ago", icon: "cup.and.saucer.fill"),
-    MetricCard(name: "Weight",   value: "82.4 kg",   freshness: .missing, timestamp: "2 days ago", icon: "scalemass.fill"),
-]
+/// Sprint 3.C: build metric grid from real MonitoringSnapshot data.
+private func buildMetricGrid(from snapshot: MonitoringSnapshot?) -> [MetricCard] {
+    guard let snap = snapshot else {
+        // Fallback: show "No data" for all metrics.
+        return [
+            MetricCard(name: "Glucose", value: "—", freshness: .missing, timestamp: "No data", icon: "drop.fill"),
+            MetricCard(name: "HR", value: "—", freshness: .missing, timestamp: "No data", icon: "waveform.path.ecg"),
+            MetricCard(name: "Steps", value: "—", freshness: .missing, timestamp: "No data", icon: "figure.walk"),
+        ]
+    }
+
+    var cards: [MetricCard] = []
+    let now = Date()
+
+    func freshness(_ reading: Reading?) -> MetricFreshness {
+        guard let r = reading else { return .missing }
+        let age = now.timeIntervalSince(r.timestamp)
+        if age < 900 { return .fresh }      // < 15 min
+        return .stale                       // >= 15 min
+    }
+
+    func timeAgo(_ reading: Reading?) -> String {
+        guard let r = reading else { return "No data" }
+        let mins = Int(now.timeIntervalSince(r.timestamp) / 60)
+        if mins < 1 { return "Now" }
+        if mins < 60 { return "\(mins) min ago" }
+        let hours = mins / 60
+        if hours < 24 { return "\(hours)h ago" }
+        return "\(hours / 24)d ago"
+    }
+
+    if let g = snap.glucose {
+        cards.append(MetricCard(name: "Glucose", value: "\(Int(g.value)) \(g.unit)", freshness: freshness(g), timestamp: timeAgo(g), icon: "drop.fill"))
+    }
+    if let sys = snap.bloodPressureSystolic, let dia = snap.bloodPressureDiastolic {
+        cards.append(MetricCard(name: "BP", value: "\(Int(sys.value))/\(Int(dia.value))", freshness: freshness(sys), timestamp: timeAgo(sys), icon: "heart.fill"))
+    }
+    if let hr = snap.heartRate {
+        cards.append(MetricCard(name: "HR", value: "\(Int(hr.value)) bpm", freshness: freshness(hr), timestamp: timeAgo(hr), icon: "waveform.path.ecg"))
+    }
+    if let hrv = snap.heartRateVariability {
+        cards.append(MetricCard(name: "HRV", value: "\(Int(hrv.value)) ms", freshness: freshness(hrv), timestamp: timeAgo(hrv), icon: "waveform"))
+    }
+    if let spo2 = snap.spo2 {
+        cards.append(MetricCard(name: "SpO₂", value: "\(Int(spo2.value))%", freshness: freshness(spo2), timestamp: timeAgo(spo2), icon: "lungs.fill"))
+    }
+    if let steps = snap.steps {
+        cards.append(MetricCard(name: "Steps", value: "\(Int(steps.value))", freshness: freshness(steps), timestamp: timeAgo(steps), icon: "figure.walk"))
+    }
+    if let sleep = snap.sleep {
+        let h = Int(sleep.value)
+        let m = Int((sleep.value - Double(h)) * 60)
+        cards.append(MetricCard(name: "Sleep", value: "\(h)h \(m)m", freshness: freshness(sleep), timestamp: timeAgo(sleep), icon: "moon.stars.fill"))
+    }
+    if let fluid = snap.fluidIntake {
+        cards.append(MetricCard(name: "Fluid", value: "\(Int(fluid.value)) mL", freshness: freshness(fluid), timestamp: timeAgo(fluid), icon: "cup.and.saucer.fill"))
+    }
+    if let weight = snap.weight {
+        cards.append(MetricCard(name: "Weight", value: String(format: "%.1f kg", weight.value), freshness: freshness(weight), timestamp: timeAgo(weight), icon: "scalemass.fill"))
+    }
+    return cards
+}
 
 private struct ThresholdItem: Identifiable {
     let id = UUID()
@@ -305,7 +356,7 @@ struct MonitoringDetailView: View {
                     columns: Array(repeating: GridItem(.flexible(), spacing: VCSpacing.sm), count: 3),
                     spacing: VCSpacing.sm
                 ) {
-                    ForEach(metricGrid) { card in
+                    ForEach(buildMetricGrid(from: viewModel?.snapshot)) { card in
                         freshnessCell(card: card)
                     }
                 }
