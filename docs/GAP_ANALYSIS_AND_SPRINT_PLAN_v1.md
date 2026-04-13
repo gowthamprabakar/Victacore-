@@ -236,31 +236,98 @@ The spec artifacts (`tasks.md`) show T030-T041 as "PENDING" but they were ALL FI
 - TestFlight submission (S-06)
 
 ### Post-MVP (v1.1)
-**Sprint F.2 + Sprint L + Sprint P+T = 18.5 days**
-- Food photo → Gemma VLM vision (F-02)
-- Barcode scanning (F-03)
-- Recipe creation (F-05)
-- Allergen + med interaction flows (F-06, F-07)
-- LLM benchmark on physical device (L-01)
-- Model download UX (L-02)
-- Tiered model strategy (L-04)
-- ResponseProfile, allergen semantic map (P-01, P-02)
-- 12 more condition profiles + 5 more med modifiers (T-01, T-02)
-- Composite rule types (T-03)
+
+**Sprint F.2: Food Vision + Barcode (5 days)**
+- F-02: Food photo → Gemma VLM vision tower
+- F-03: Barcode scanning via AVCaptureMetadataOutput
+- F-05: Recipe creation with composite macros
+- F-06: Allergen warning end-to-end flow
+- F-07: Medication interaction checking flow
+
+**Sprint L: LLM Runtime (6 days)**
+- L-01: On-device benchmark (load time, tok/s, peak RAM on physical iPhone)
+- L-02: Model download UX (OnboardingDownloadView → Gemma4Runtime.load)
+- L-03: Model management settings (status, size, delete, re-download)
+- L-04: Tiered model strategy (E2B chat ↔ E4B RCA swap)
+
+**Sprint P+T: Engine Completion (7.5 days)**
+- P-01: ResponseProfile entity (10-sample-minimum activation)
+- P-02: Allergen semantic map (peanut → groundnut, satay, etc.)
+- T-01: 12 more condition profiles
+- T-02: 5 more medication modifiers
+- T-03: Composite rule types (PostMealSpike, HypoTrajectory, etc.)
 
 ---
 
-## TOTAL EFFORT SUMMARY
+## COMPONENT 11: Wellness Features (Previously Missing From Plan)
+
+**These were identified in the Bevel competitive analysis Feature Completeness
+table but NOT included in any sprint. Adding them now.**
+
+### Features to BUILD (clinically relevant for metabolic health)
+
+| # | Gap | What Bevel Has | What VitaCore Needs | Why It Matters for Metabolic Patients | Effort |
+|---|---|---|---|---|---|
+| **W-01** | MetabolicReadiness Score | HRV + RHR + temp → 0-100% recovery | Compute from: sleep quality + glucose time-in-range + HRV trend + medication adherence → 0-100% | Poor readiness → insulin resistance → elevated glucose next day. Clinically actionable. | 2 days |
+| **W-02** | SleepQualityScore | Quality %, stages, baseline comparison | Compute from: hours + deep sleep % + interruptions + overnight glucose stability + comparison to 7-day avg | Sleep < 6h → 40% increased insulin resistance (published evidence). Direct glucose predictor. | 2 days |
+| **W-03** | StressLevel (discrete) | Current stress level tracked | Elevate from RCA cofactor to discrete metric. Compute from: resting HR variance + HRV drop + time-of-day. Display on Home Dashboard. | Cortisol → hepatic glucose output. Stress is a first-order glucose confounder. | 1.5 days |
+| **W-04** | HealthJournal | Log habits → correlate with outcomes | Targeted metabolic journal: what I ate, how I moved, how I slept, did I take meds? Auto-correlate each entry with glucose readings in the ±4h window via CofactorAnalyser. | Unlike Bevel's generic journal, VitaCore's is clinically focused: every entry feeds the RCA engine. | 3 days |
+| **W-05** | VO2 Max display | Tracked from HealthKit | Read `HKQuantityType.vo2Max` from HealthKit. Display on Home Dashboard as a cardiovascular fitness indicator. | Cardiovascular fitness inversely correlates with metabolic syndrome risk. Easy value add. | 0.5 day |
+
+**Sprint W: Wellness Intelligence (9 days total)**
+
+### Features to DEFER (not core to metabolic health)
+
+| # | Feature | Bevel Has | Why Defer | Target |
+|---|---|---|---|---|
+| **W-D1** | Strain Score / Cardio Load | Active + passive strain, 6-state training status | Metabolic patients aren't optimising training load. Activity impact on glucose already handled by CofactorAnalyser. | v2.0 |
+| **W-D2** | Strength Training | 700+ exercises, AI workouts | Not clinically relevant for metabolic health MVP. | v2.0+ |
+| **W-D3** | Smart Alarm | Wake during light sleep | Nice-to-have, not therapeutic. | v2.0 |
+| **W-D4** | Energy Bank | Composite of recovery + sleep + strain + stress | MetabolicReadiness (W-01) serves the same purpose with clinical framing. | Replaced by W-01 |
+
+---
+
+## REVISED TOTAL EFFORT SUMMARY
 
 | Scope | Gaps | Days | Weeks |
 |---|---|---|---|
 | **v1.0 (TestFlight)** | 28 gaps | 25.5 days | ~5 weeks |
-| **v1.1 (App Store)** | 15 gaps | 18.5 days | ~4 weeks |
-| **v2.0 (Competitive)** | watchOS, habit journal, energy bank | TBD | TBD |
-| **TOTAL to market fit** | 43 gaps | 44 days | ~9 weeks |
+| **v1.1 (App Store)** | 15 gaps + 5 wellness features | 28 days | ~6 weeks |
+| **v2.0 (Competitive)** | watchOS + Strain + Strength + Smart Alarm | TBD | TBD |
+| **TOTAL to market fit** | 48 gaps | 53.5 days | ~11 weeks |
+
+### Revised v1.1 Sprint Sequence
+
+| Sprint | Content | Days |
+|---|---|---|
+| F.2 | Food vision + barcode + allergen + med interaction | 5 |
+| L | LLM benchmark + download UX + tiered model | 6 |
+| **W** | **MetabolicReadiness + SleepScore + StressLevel + HealthJournal + VO2Max** | **9** |
+| P+T | PersonaEngine + ThresholdEngine completion | 7.5 |
+| **v1.1 TOTAL** | | **27.5 days** |
+
+---
+
+## COMPLETE GAP INVENTORY (All IDs)
+
+| ID Range | Component | Count |
+|---|---|---|
+| F-01 to F-08 | Food Intelligence | 8 |
+| D-01 to D-04 | Design & Polish | 4 |
+| M-01 to M-04 | Monitoring Hardcodes | 4 |
+| N-01 to N-04 | Notifications | 4 |
+| O-01 to O-04 | Onboarding | 4 |
+| P-01 to P-04 | PersonaEngine Completion | 4 |
+| T-01 to T-03 | ThresholdEngine Completion | 3 |
+| Q-01 to Q-06 | Testing & Quality | 6 |
+| L-01 to L-04 | LLM Runtime | 4 |
+| S-01 to S-06 | Ship-Readiness | 6 |
+| **W-01 to W-05** | **Wellness Intelligence (NEW)** | **5** |
+| W-D1 to W-D4 | Deferred (v2.0) | 4 |
+| **TOTAL** | | **52 active + 4 deferred** |
 
 ---
 
 ## TRACKING
 
-Each gap has a unique ID (F-01 through S-06). Sprint assignments are fixed. Mark each [DONE] as it lands. Re-run `/speckit-analyze` after each phase completes.
+Each gap has a unique ID (F-01 through W-05). Sprint assignments are fixed. Mark each [DONE] as it lands. Re-run `/speckit-analyze` after each phase completes.
