@@ -69,13 +69,14 @@ public actor FoodDatabase {
         }
         let dbPath = dir.appendingPathComponent("vitacore_food.sqlite")
 
-        // Copy the bundled pre-built USDA database on first access.
-        // 7,873 foods from USDA SR Legacy + 86 South Asian + International.
+        // Copy bundled USDA + Open Food Facts DB (17,873 items, 2.7 MB).
         if !fm.fileExists(atPath: dbPath.path) {
             if let bundled = Bundle.module.url(forResource: "vitacore_food", withExtension: "sqlite") {
-                try fm.copyItem(at: bundled, to: dbPath)
-            } else {
-                // Fallback: create and seed from code if bundle missing.
+                do { try fm.copyItem(at: bundled, to: dbPath) }
+                catch { /* Race: another thread already copied — ignore */ }
+            }
+            // If still missing (no bundle or copy failed), seed from code.
+            if !fm.fileExists(atPath: dbPath.path) {
                 try Self.createAndSeed(at: dbPath.path)
             }
         }
