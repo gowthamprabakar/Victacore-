@@ -104,17 +104,13 @@ struct VitaCoreApp: App {
         self.skillBus = bus
         print("✅ VitaCoreSkillBus: \(bus.registeredSkillCount) skills registered")
 
-        // C09 HeartbeatEngine — foreground monitoring loop. Evaluates
-        // readings against ThresholdEngine, fires alerts on crossings.
-        // Starts when app enters foreground; stops in background.
+        // C09 HeartbeatEngine — foreground monitoring loop.
         let heartbeat = HeartbeatEngine(
             graphStore: graph,
             thresholdEngine: self.thresholdEngine,
             cycleInterval: 60
         )
-        heartbeat.onAlert = { alert in
-            print("🚨 HeartbeatAlert: \(alert.level.rawValue) — \(alert.message)")
-        }
+        self.heartbeatEngine = heartbeat
         // Wire HeartbeatEngine → MiroFish: threshold crossing triggers
         // multi-cofactor RCA + prescription card generation.
         let miroFish = MiroFishEngine()
@@ -143,12 +139,44 @@ struct VitaCoreApp: App {
                 }
             }
         }
-        self.heartbeatEngine = heartbeat
         heartbeat.start()
         print("✅ HeartbeatEngine + MiroFish: monitoring + RCA pipeline active")
 
         // Now that all stored properties are set, it's safe to call instance methods.
         configureAppearance()
+
+        // Sprint 3.D: route HeartbeatEngine alerts to AlertPresentationManager
+        // so CriticalAlertView / AlertSheetView / WatchBannerView actually render.
+        let alertMgr = self.alertManager
+        heartbeat.onAlert = { @Sendable alert in
+            Task { @MainActor in
+                switch alert.level {
+                case .critical:
+                    alertMgr.presentCritical(CriticalAlertData(
+                        alertId: alert.id,
+                        title: alert.metricType.displayName,
+                        body: alert.message,
+                        metricValue: alert.value,
+                        metricUnit: alert.unit
+                    ))
+                case .alert:
+                    alertMgr.presentAlert(AlertSheetData(
+                        alertId: alert.id,
+                        title: "\(alert.metricType.displayName) Alert",
+                        body: alert.message,
+                        metricValue: alert.value,
+                        metricUnit: alert.unit
+                    ))
+                case .watch:
+                    alertMgr.presentWatch(WatchBannerData(
+                        alertId: alert.id,
+                        title: alert.message,
+                        subtitle: "\(Int(alert.value)) \(alert.unit)",
+                        iconName: alert.metricType.icon
+                    ))
+                }
+            }
+        }
 
         // Sprint 2.B: HealthKit authorization + backfill on first launch.
         // The system dialog shows once; subsequent launches are no-ops.
