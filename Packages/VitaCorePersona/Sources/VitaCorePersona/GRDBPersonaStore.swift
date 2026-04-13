@@ -173,9 +173,28 @@ public actor GRDBPersonaStore {
     public func mutate(
         _ transform: @Sendable (PersonaContext) -> PersonaContext
     ) async throws -> PersonaContext {
-        let current = try await loadContext() ?? PersonaContext(userId: UUID())
-        let updated = transform(current)
-        try await saveContext(updated)
+        // Read + transform + write in a SINGLE GRDB transaction to
+        // prevent actor reentrancy from causing lost updates.
+        let decoder = self.decoder
+        let encoder = self.encoder
+        let updated: PersonaContext = try await writer.write { db in
+            let current: PersonaContext
+            if let row = try PersonaContextRow.fetchOne(db),
+               let ctx = try? decoder.decode(PersonaContext.self, from: row.blob) {
+                current = ctx
+            } else {
+                current = PersonaContext(userId: UUID())
+            }
+            let result = transform(current)
+            let blob = try encoder.encode(result)
+            let row = PersonaContextRow(
+                userId: result.userId.uuidString,
+                blob: blob,
+                updatedAt: Date()
+            )
+            try row.save(db)
+            return result
+        }
         return updated
     }
 

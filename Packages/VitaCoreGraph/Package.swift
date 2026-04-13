@@ -15,7 +15,6 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../VitaCoreContracts"),
-        // GRDB.swift v7.x — actively maintained, iOS 13+, Data Protection support
         .package(url: "https://github.com/groue/GRDB.swift", from: "7.10.0")
     ],
     targets: [
